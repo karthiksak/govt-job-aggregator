@@ -24,20 +24,31 @@ public class JobNoticeController {
 
     /**
      * GET /api/notices
-     * Filters: category, state, period (today|this_week|all), page, size
+     * Filters: category, state, noticeType, branch, period (today|this_week|all),
+     * page, size
      */
     @GetMapping("/notices")
     public ResponseEntity<ApiResponse<Page<JobNoticeDto>>> getNotices(
             @RequestParam(required = false) String category,
             @RequestParam(required = false) String state,
             @RequestParam(required = false) String noticeType,
+            @RequestParam(required = false) String branch,
             @RequestParam(defaultValue = "all") String period,
             @RequestParam(defaultValue = "newest") String sortBy,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "20") int size) {
 
-        Page<JobNoticeDto> result = noticeService.getNotices(category, state, noticeType, period, sortBy, page, size);
+        Page<JobNoticeDto> result = noticeService.getNotices(category, state, noticeType, branch, period, sortBy, page,
+                size);
         return ResponseEntity.ok(ApiResponse.ok(result));
+    }
+
+    /**
+     * GET /api/notices/count/new - Count of notices fetched in the last 24 hours
+     */
+    @GetMapping("/notices/count/new")
+    public ResponseEntity<ApiResponse<Long>> countNew() {
+        return ResponseEntity.ok(ApiResponse.ok(noticeService.countNew()));
     }
 
     /**

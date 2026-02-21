@@ -28,7 +28,7 @@ import { useEffect, useRef } from 'react';
 
 // Pagination component removed in favor of infinite scroll
 
-export default function NoticeList({ notices, loading, page, totalPages, onPageChange }) {
+export default function NoticeList({ notices, loading, page, totalPages, onPageChange, isSaved, toggleSave }) {
     const observerTarget = useRef(null);
 
     useEffect(() => {
@@ -76,7 +76,7 @@ export default function NoticeList({ notices, loading, page, totalPages, onPageC
             <div className="notices-grid">
                 {notices.map((notice, index) => (
                     <div key={notice.id || index} style={{ display: 'contents' }}>
-                        <NoticeCard notice={notice} />
+                        <NoticeCard notice={notice} isSaved={isSaved} toggleSave={toggleSave} />
                         {/* Inject an Ad placeholder every 6 items */}
                         {(index > 0 && (index + 1) % 6 === 0) && (
                             <AdPlaceholder />

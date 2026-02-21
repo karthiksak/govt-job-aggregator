@@ -14,9 +14,10 @@ const CATEGORIES = [
 const NOTICE_TYPES = [
     { key: '', label: '📑 All Types' },
     { key: 'RECRUITMENT', label: '💼 Recruitment' },
+    { key: 'APPRENTICESHIP', label: '🔧 Apprenticeship' },
     { key: 'EXAM_ADMIT_CARD', label: '🎟️ Exam/Admit Card' },
-    { key: 'RESULT', label: '🏆 Result/Merit' },
-    { key: 'CALENDAR', label: '📆 Calendar/Schedule' },
+    { key: 'RESULT', label: '🏆 Result' },
+    { key: 'CALENDAR', label: '📆 Calendar' },
     { key: 'GENERAL_INFO', label: 'ℹ️ General Info' },
 ];
 

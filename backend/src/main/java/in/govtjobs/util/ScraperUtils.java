@@ -324,12 +324,64 @@ public class ScraperUtils {
         if (lower.contains("calendar") || lower.contains("planner") || lower.contains("schedule")) {
             return "CALENDAR";
         }
+        if (lower.contains("apprentice") || lower.contains("nats") || lower.contains("trade apprentice")
+                || lower.contains("act apprentice") || lower.contains("apprenticeship")) {
+            return "APPRENTICESHIP";
+        }
         if (lower.contains("recruit") || lower.contains("vacancy") || lower.contains("notification")
                 || lower.contains("advt") || lower.contains("apply") || lower.contains("post")
                 || lower.contains("officer") || lower.contains("clerk")) {
             return "RECRUITMENT";
         }
         return "GENERAL_INFO";
+    }
+
+    /**
+     * Infers engineering branch codes from a notice title using keyword matching.
+     * Returns a comma-separated string of matched branch codes, or null if none
+     * found.
+     * Codes: CIVIL, MECH, EEE, ECE, CSE, CHEM, INST, GENERAL_ENGG
+     */
+    public String inferEngineeringBranches(String title) {
+        if (title == null || title.isBlank())
+            return null;
+        String lower = title.toLowerCase();
+        java.util.List<String> branches = new java.util.ArrayList<>();
+
+        if (lower.contains("civil") || lower.contains("structural"))
+            branches.add("CIVIL");
+        if (lower.contains("mechanical") || lower.contains(" mech ") || lower.contains("machinist")
+                || lower.contains("fitter") || lower.contains("welder") || lower.contains("boiler"))
+            branches.add("MECH");
+        if (lower.contains("electrical") || lower.contains(" eee ") || lower.contains("electrician"))
+            branches.add("EEE");
+        if (lower.contains("electronics") || lower.contains(" ece ") || lower.contains("radio")
+                || lower.contains("telecommunication"))
+            branches.add("ECE");
+        if (lower.contains("computer") || lower.contains(" cse ") || lower.contains(" it ")
+                || lower.contains("software")
+                || lower.contains("programmer") || lower.contains("data entry"))
+            branches.add("CSE");
+        if (lower.contains("chemical") || lower.contains("petrochem"))
+            branches.add("CHEM");
+        if (lower.contains("instrumentation") || lower.contains("instrument"))
+            branches.add("INST");
+
+        // If title has generic engineering keywords but no specific branch detected
+        if (branches.isEmpty() && (lower.contains("engineer") || lower.contains(" je ") ||
+                lower.contains(" get ") || lower.contains("technical officer") ||
+                lower.contains("graduate engineer") || lower.contains("junior engineer")))
+            branches.add("GENERAL_ENGG");
+
+        return branches.isEmpty() ? null : String.join(",", branches);
+    }
+
+    /**
+     * Returns true if the title contains keywords indicating an engineering-related
+     * notice.
+     */
+    public boolean isEngineeringRelated(String title) {
+        return inferEngineeringBranches(title) != null;
     }
 
     /**

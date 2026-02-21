@@ -208,6 +208,7 @@ public class StateGovtScraper implements JobNoticeSource {
                 .category(getCategory())
                 .state(state)
                 .noticeType(utils.categorizeNoticeType(title))
+                .engineeringBranches(utils.inferEngineeringBranches(title))
                 .publishedDate(utils.parseDate(utils.extractDateFromAncestor(link, 0)))
                 .lastDate(utils.parseDate(utils.extractDateFromAncestor(link, 1)))
                 .build();

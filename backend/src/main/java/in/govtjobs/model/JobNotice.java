@@ -49,6 +49,14 @@ public class JobNotice {
     @Column(length = 50)
     private String noticeType;
 
+    /**
+     * Comma-separated engineering branch codes inferred from title keywords.
+     * Values: CIVIL, MECH, EEE, ECE, CSE, CHEM, INST, GENERAL_ENGG
+     * Null if not an engineering-related notice.
+     */
+    @Column(length = 200)
+    private String engineeringBranches;
+
     @Column(nullable = false, length = 200)
     private String sourceName;
 

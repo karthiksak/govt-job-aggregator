@@ -21,4 +21,12 @@ public class JobNoticeDto {
     private LocalDate publishedDate;
     private LocalDate lastDate;
     private LocalDateTime fetchedAt;
+    /** True if fetched within the last 24 hours */
+    private boolean isNew;
+    /** True if lastDate is within the next 3 days and not already expired */
+    private boolean isDeadlineSoon;
+    /** Extracted hostname from sourceUrl, e.g. "upsc.gov.in" */
+    private String sourceDomain;
+    /** Comma-separated engineering branch codes, null if not engineering-related */
+    private String engineeringBranches;
 }

@@ -16,3 +16,7 @@ export const fetchStates = () =>
 
 export const triggerRefresh = () =>
     axios.post(`${BASE}/admin/refresh`).then(r => r.data.data);
+
+export const fetchNewCount = () =>
+    axios.get(`${BASE}/notices/count/new`).then(r => r.data.data);
+

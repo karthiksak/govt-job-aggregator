@@ -18,4 +18,5 @@ public class RawNotice {
     private String category;
     private String state;
     private String noticeType;
+    private String engineeringBranches;
 }

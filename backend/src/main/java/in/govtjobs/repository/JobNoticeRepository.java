@@ -41,6 +41,7 @@ public interface JobNoticeRepository extends JpaRepository<JobNotice, UUID> {
                         WHERE (:category IS NULL OR j.category = :category)
                         AND   (:state    IS NULL OR j.state    = :state)
                         AND   (:noticeType IS NULL OR j.noticeType = :noticeType)
+                        AND   (:branch IS NULL OR j.engineeringBranches LIKE CONCAT('%', :branch, '%'))
                         AND   (:fromDate IS NULL OR j.fetchedAt >= :fromDate)
                         AND   (:toDate   IS NULL OR j.fetchedAt <= :toDate)
                         """)
@@ -48,7 +49,10 @@ public interface JobNoticeRepository extends JpaRepository<JobNotice, UUID> {
                         @Param("category") String category,
                         @Param("state") String state,
                         @Param("noticeType") String noticeType,
+                        @Param("branch") String branch,
                         @Param("fromDate") java.time.LocalDateTime fromDate,
                         @Param("toDate") java.time.LocalDateTime toDate,
                         Pageable pageable);
+
+        long countByFetchedAtAfter(java.time.LocalDateTime since);
 }

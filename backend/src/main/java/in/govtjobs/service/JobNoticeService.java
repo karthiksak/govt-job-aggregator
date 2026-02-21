@@ -25,7 +25,7 @@ public class JobNoticeService {
     private final JobNoticeRepository repository;
 
     public Page<JobNoticeDto> getNotices(
-            String category, String state, String noticeType, String period,
+            String category, String state, String noticeType, String branch, String period,
             String sortBy, int page, int size) {
 
         LocalDate fromDate = null;
@@ -43,6 +43,7 @@ public class JobNoticeService {
         String cat = (category == null || category.isBlank()) ? null : category.toUpperCase().trim();
         String st = (state == null || state.isBlank()) ? null : state.trim();
         String nt = (noticeType == null || noticeType.isBlank()) ? null : noticeType.toUpperCase().trim();
+        String br = (branch == null || branch.isBlank()) ? null : branch.toUpperCase().trim();
 
         Sort sort = switch (sortBy == null ? "newest" : sortBy.toLowerCase()) {
             case "deadline" ->
@@ -59,8 +60,12 @@ public class JobNoticeService {
         LocalDateTime fromDateTime = fromDate == null ? null : fromDate.atStartOfDay();
         LocalDateTime toDateTime = toDate == null ? null : toDate.atTime(23, 59, 59, 999999999);
 
-        Page<JobNotice> notices = repository.findWithFilters(cat, st, nt, fromDateTime, toDateTime, pageable);
+        Page<JobNotice> notices = repository.findWithFilters(cat, st, nt, br, fromDateTime, toDateTime, pageable);
         return notices.map(this::toDto);
+    }
+
+    public long countNew() {
+        return repository.countByFetchedAtAfter(LocalDateTime.now().minusHours(24));
     }
 
     public Optional<JobNoticeDto> getById(UUID id) {
@@ -78,17 +83,44 @@ public class JobNoticeService {
     }
 
     private JobNoticeDto toDto(JobNotice n) {
+        LocalDateTime now = LocalDateTime.now();
+        LocalDate today = LocalDate.now();
+        boolean isNew = n.getFetchedAt() != null && n.getFetchedAt().isAfter(now.minusHours(24));
+        boolean isDeadlineSoon = n.getLastDate() != null
+                && !n.getLastDate().isBefore(today)
+                && n.getLastDate().isBefore(today.plusDays(4));
+        String sourceDomain = extractDomain(n.getSourceUrl());
         return JobNoticeDto.builder()
                 .id(n.getId())
                 .title(n.getTitle())
                 .category(n.getCategory())
                 .state(n.getState())
+                .noticeType(n.getNoticeType())
+                .engineeringBranches(n.getEngineeringBranches())
                 .sourceName(n.getSourceName())
                 .sourceUrl(n.getSourceUrl())
                 .applyUrl(n.getApplyUrl())
                 .publishedDate(n.getPublishedDate())
                 .lastDate(n.getLastDate())
                 .fetchedAt(n.getFetchedAt())
+                .isNew(isNew)
+                .isDeadlineSoon(isDeadlineSoon)
+                .sourceDomain(sourceDomain)
                 .build();
+    }
+
+    private String extractDomain(String url) {
+        if (url == null || url.isBlank())
+            return null;
+        try {
+            java.net.URI uri = java.net.URI.create(url);
+            String host = uri.getHost();
+            if (host == null)
+                return null;
+            // Strip leading www.
+            return host.startsWith("www.") ? host.substring(4) : host;
+        } catch (Exception e) {
+            return null;
+        }
     }
 }

@@ -9,6 +9,15 @@ const CAT_ICONS = {
     PSU: '🏭', STATE: '🗺️', MEDICAL: '🏥', DEFENCE: '🛡️', OTHERS: '📌',
 };
 
+const NOTICE_TYPE_LABELS = {
+    RECRUITMENT: 'Recruitment',
+    EXAM_ADMIT_CARD: 'Admit Card',
+    RESULT: 'Result',
+    APPRENTICESHIP: 'Apprenticeship',
+    CALENDAR: 'Calendar',
+    GENERAL_INFO: 'General Info',
+};
+
 function formatDate(dateStr) {
     if (!dateStr) return null;
     const d = new Date(dateStr);
@@ -18,25 +27,17 @@ function formatDate(dateStr) {
 
 function isExpired(dateStr) {
     if (!dateStr) return false;
-    return new Date(dateStr) < new Date();
+    const d = new Date(dateStr);
+    d.setHours(0, 0, 0, 0);
+    return d < new Date();
 }
 
-function isNew(dateStr) {
-    if (!dateStr) return false;
-    const diff = (new Date() - new Date(dateStr)) / (1000 * 60 * 60 * 24);
-    return diff <= 2;
-}
-
-
-export default function NoticeCard({ notice }) {
+export default function NoticeCard({ notice, isSaved, toggleSave }) {
     const accent = CAT_ACCENTS[notice.category] || '#374151';
     const icon = CAT_ICONS[notice.category] || '📌';
     const expired = isExpired(notice.lastDate);
-    const fresh = isNew(notice.publishedDate);
-
-    // Show publishedDate, fallback to fetchedAt if not scraped
-    const postedDate = notice.publishedDate || notice.fetchedAt;
-    const postedLabel = formatDate(postedDate);
+    const saved = isSaved ? isSaved(notice.id) : false;
+    const typeLabel = NOTICE_TYPE_LABELS[notice.noticeType] || notice.noticeType;
 
     return (
         <article
@@ -44,28 +45,34 @@ export default function NoticeCard({ notice }) {
             style={{ '--card-accent': accent }}
             aria-label={notice.title}
         >
-            {/* Header: category badge + NEW + state */}
+            {/* Header: category + type badges + state */}
             <div className="card-header">
                 <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap', alignItems: 'center' }}>
                     <span className={`category-badge ${notice.category}`}>
                         {icon} {notice.category}
                     </span>
-                    {notice.noticeType && (
+                    {notice.noticeType && notice.noticeType !== 'GENERAL_INFO' && (
                         <span style={{
-                            background: 'var(--color-surface-2)',
-                            color: 'var(--color-text-secondary)',
+                            background: notice.noticeType === 'APPRENTICESHIP' ? '#FEF3C7' :
+                                notice.noticeType === 'RESULT' ? '#D1FAE5' :
+                                    notice.noticeType === 'EXAM_ADMIT_CARD' ? '#EFF6FF' :
+                                        'var(--color-surface-2)',
+                            color: notice.noticeType === 'APPRENTICESHIP' ? '#92400E' :
+                                notice.noticeType === 'RESULT' ? '#065F46' :
+                                    notice.noticeType === 'EXAM_ADMIT_CARD' ? '#1E40AF' :
+                                        'var(--color-text-secondary)',
                             fontSize: '0.62rem',
                             fontWeight: 600,
                             padding: '0.15rem 0.45rem',
                             borderRadius: '4px',
                             border: '1px solid var(--color-border)'
                         }}>
-                            {notice.noticeType.replace('_', ' ')}
+                            {typeLabel}
                         </span>
                     )}
-                    {fresh && (
+                    {notice.isNew && (
                         <span style={{
-                            background: '#FEF3C7', color: '#92400E', fontSize: '0.62rem',
+                            background: '#FF9933', color: 'white', fontSize: '0.62rem',
                             fontWeight: 700, padding: '0.15rem 0.45rem', borderRadius: '4px',
                             textTransform: 'uppercase', letterSpacing: '0.06em'
                         }}>NEW</span>
@@ -77,29 +84,41 @@ export default function NoticeCard({ notice }) {
             </div>
 
             {/* Title */}
-            <h2 className="card-title" title={notice.title} style={{ fontSize: '1rem', letterSpacing: '-0.01em', fontWeight: 700 }}>
+            <h2 className="card-title" title={notice.title}>
                 {notice.title}
             </h2>
 
-            {/* Date meta */}
-            <div className="card-meta">
-                {/* Published date — only when scraped from source */}
-                {postedLabel && (
-                    <span className="meta-item" title="Date published on official source">
-                        <span className="icon">📅</span>
-                        {postedLabel}
+            {/* DEADLINE — shown prominently first */}
+            <div className="card-deadline">
+                {notice.lastDate ? (
+                    <span
+                        className={`deadline-block${notice.isDeadlineSoon && !expired ? ' deadline-soon' : ''}${expired ? ' deadline-expired' : ''}`}
+                        title="Last date to apply"
+                    >
+                        <span className="deadline-icon">{expired ? '⏰' : notice.isDeadlineSoon ? '⚠️' : '📅'}</span>
+                        <span>
+                            <strong>Last Date:</strong> {formatDate(notice.lastDate)}
+                            {expired && <span className="expired-label"> · Expired</span>}
+                            {notice.isDeadlineSoon && !expired && <span className="soon-label"> · Closing Soon!</span>}
+                        </span>
                     </span>
-                )}
-
-                {/* Last / deadline date */}
-                {notice.lastDate && (
-                    <span className={`meta-item deadline${expired ? ' expired' : ''}`}>
-                        <span className="icon">{expired ? '⏰' : '⏳'}</span>
-                        Last date: {formatDate(notice.lastDate)}
-                        {expired && <span style={{ color: '#DC2626', fontWeight: 600 }}> · Expired</span>}
+                ) : (
+                    <span className="deadline-unknown">
+                        <span className="deadline-icon">ℹ️</span>
+                        <span className="deadline-not-mentioned">Last date not mentioned — verify on official site</span>
                     </span>
                 )}
             </div>
+
+            {/* Published date — secondary */}
+            {(notice.publishedDate || notice.fetchedAt) && (
+                <div className="card-meta">
+                    <span className="meta-item" title="Published on official source">
+                        <span className="icon">🗓️</span>
+                        Posted: {formatDate(notice.publishedDate || notice.fetchedAt)}
+                    </span>
+                </div>
+            )}
 
             {/* Source */}
             <div className="card-source">
@@ -107,6 +126,16 @@ export default function NoticeCard({ notice }) {
                 <span className="source-name" title={notice.sourceName}>
                     {notice.sourceName}
                 </span>
+                {notice.sourceDomain && (
+                    <span style={{
+                        fontSize: '0.65rem', color: 'var(--color-text-muted)',
+                        background: 'var(--color-surface-2)', borderRadius: '4px',
+                        padding: '0.1rem 0.4rem', border: '1px solid var(--color-border)',
+                        marginLeft: 'auto', whiteSpace: 'nowrap', flexShrink: 0
+                    }}>
+                        {notice.sourceDomain}
+                    </span>
+                )}
             </div>
 
             {/* Actions */}
@@ -118,19 +147,22 @@ export default function NoticeCard({ notice }) {
                     className="btn-apply"
                     aria-label={`View ${notice.title} on official website`}
                 >
-                    View on Official Site ↗
+                    View Official Notice ↗
                 </a>
-                {notice.applyUrl && notice.applyUrl !== notice.sourceUrl && (
-                    <a
-                        href={notice.sourceUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                {toggleSave && (
+                    <button
+                        onClick={() => toggleSave(notice)}
                         className="btn-official"
-                        aria-label={`Visit ${notice.sourceName} official website`}
-                        title="Visit Official Website"
+                        aria-label={saved ? 'Remove from saved' : 'Save this notice'}
+                        title={saved ? 'Remove from saved' : 'Save for later'}
+                        style={{
+                            background: saved ? '#FEF3C7' : 'transparent',
+                            border: `1.5px solid ${saved ? '#D97706' : 'var(--color-border)'}`,
+                            color: saved ? '#92400E' : 'var(--color-text-secondary)',
+                        }}
                     >
-                        🌐
-                    </a>
+                        {saved ? '⭐' : '☆'}
+                    </button>
                 )}
             </div>
         </article>

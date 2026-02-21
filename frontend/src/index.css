@@ -697,3 +697,220 @@ img { max-width: 100%; }
   .header-badge { display: none; }
   .filter-section { top: 60px; }
 }
+
+/* ============================================================
+   Site Header (new tabs-based layout)
+   ============================================================ */
+.site-header {
+  background: linear-gradient(135deg, var(--color-primary) 0%, #0D3B7A 100%);
+  border-bottom: 3px solid var(--color-secondary);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 20px rgba(11, 36, 71, 0.4);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.6rem 0;
+  flex-wrap: wrap;
+}
+
+.logo-block {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  flex-shrink: 0;
+}
+
+.logo-badge {
+  background: var(--color-secondary);
+  color: white;
+  font-weight: 800;
+  font-size: 0.9rem;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  letter-spacing: -0.5px;
+}
+
+.logo-text {
+  color: white;
+  font-weight: 800;
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.logo-sub {
+  color: rgba(255,255,255,0.55);
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* Header Tab Nav */
+.header-tabs {
+  display: flex;
+  gap: 0.25rem;
+  align-items: center;
+}
+
+.header-tab {
+  background: transparent;
+  border: none;
+  color: rgba(255,255,255,0.65);
+  font-family: var(--font-family);
+  font-size: 0.78rem;
+  font-weight: 500;
+  padding: 0.4rem 0.85rem;
+  border-radius: 100px;
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  position: relative;
+}
+
+.header-tab:hover {
+  background: rgba(255,255,255,0.1);
+  color: white;
+}
+
+.header-tab.active {
+  background: rgba(255,255,255,0.15);
+  color: white;
+  font-weight: 700;
+}
+
+.tab-badge {
+  background: var(--color-secondary);
+  color: white;
+  font-size: 0.6rem;
+  font-weight: 700;
+  padding: 0.1rem 0.35rem;
+  border-radius: 100px;
+  min-width: 16px;
+  text-align: center;
+}
+
+.header-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: rgba(255,255,255,0.65);
+  font-size: 0.72rem;
+  margin-left: auto;
+}
+
+.live-dot {
+  width: 7px;
+  height: 7px;
+  background: #22C55E;
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+/* ============================================================
+   Hero h1 override
+   ============================================================ */
+.hero h1#hero-heading {
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  font-weight: 800;
+  color: white;
+  letter-spacing: -0.5px;
+  margin-bottom: 0.5rem;
+}
+
+/* ============================================================
+   Deadline Blocks (card-deadline section)
+   ============================================================ */
+.card-deadline {
+  margin-bottom: 0.5rem;
+}
+
+.deadline-block {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 0.4rem;
+  background: #F0FDF4;
+  border: 1px solid #BBF7D0;
+  border-radius: 6px;
+  padding: 0.35rem 0.6rem;
+  font-size: 0.78rem;
+  color: #166534;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.deadline-block.deadline-soon {
+  background: #FFFBEB;
+  border-color: #FCD34D;
+  color: #92400E;
+}
+
+.deadline-block.deadline-expired {
+  background: #FFF1F2;
+  border-color: #FECDD3;
+  color: #9F1239;
+}
+
+.deadline-unknown {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  font-style: italic;
+}
+
+.deadline-not-mentioned {
+  font-size: 0.73rem;
+}
+
+.deadline-icon {
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+.expired-label {
+  color: #9F1239;
+  font-weight: 700;
+}
+
+.soon-label {
+  color: #B45309;
+  font-weight: 700;
+}
+
+/* ============================================================
+   Notice card title
+   ============================================================ */
+.card-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+  margin-bottom: 0.5rem;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ============================================================
+   Responsive header tabs
+   ============================================================ */
+@media (max-width: 640px) {
+  .header-inner { gap: 0.5rem; }
+  .header-tab { font-size: 0.7rem; padding: 0.35rem 0.6rem; }
+  .logo-sub { display: none; }
+  .header-meta { display: none; }
+}
+
