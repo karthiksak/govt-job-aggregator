@@ -1,0 +1,5 @@
+2026-02-21 12:20:06.745590+05:30 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLTimeoutException: Timeout trying to lock table {0}; SQL statement:
+insert into job_notices (apply_url,category,content_hash,fetched_at,last_date,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?) [50200-224]
+2026-02-21 12:20:06.807728+05:30 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: The object is already closed [90007-224]
