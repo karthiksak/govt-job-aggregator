@@ -65,12 +65,13 @@ public class UpscScraper implements JobNoticeSource {
                 String href = utils.absoluteUrl(BASE_URL, link.attr("href"));
 
                 notices.add(RawNotice.builder()
-                        .title(title)
+                        .title(utils.normalizeTitleForDisplay(title))
                         .applyUrl(href)
                         .sourceName(getSourceName())
                         .sourceUrl(getSourceUrl())
                         .category(getCategory())
                         .state(getState())
+                        .noticeType(utils.categorizeNoticeType(title))
                         .publishedDate(utils.parseDate(utils.extractDateFromAncestor(link, 0)))
                         .lastDate(utils.parseDate(utils.extractDateFromAncestor(link, 1)))
                         .build());

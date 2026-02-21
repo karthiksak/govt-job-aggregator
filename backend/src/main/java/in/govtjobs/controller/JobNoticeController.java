@@ -30,12 +30,13 @@ public class JobNoticeController {
     public ResponseEntity<ApiResponse<Page<JobNoticeDto>>> getNotices(
             @RequestParam(required = false) String category,
             @RequestParam(required = false) String state,
+            @RequestParam(required = false) String noticeType,
             @RequestParam(defaultValue = "all") String period,
             @RequestParam(defaultValue = "newest") String sortBy,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "20") int size) {
 
-        Page<JobNoticeDto> result = noticeService.getNotices(category, state, period, sortBy, page, size);
+        Page<JobNoticeDto> result = noticeService.getNotices(category, state, noticeType, period, sortBy, page, size);
         return ResponseEntity.ok(ApiResponse.ok(result));
     }
 

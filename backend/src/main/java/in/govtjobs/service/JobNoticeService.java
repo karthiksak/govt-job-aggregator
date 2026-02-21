@@ -12,6 +12,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -24,7 +25,7 @@ public class JobNoticeService {
     private final JobNoticeRepository repository;
 
     public Page<JobNoticeDto> getNotices(
-            String category, String state, String period,
+            String category, String state, String noticeType, String period,
             String sortBy, int page, int size) {
 
         LocalDate fromDate = null;
@@ -41,6 +42,7 @@ public class JobNoticeService {
 
         String cat = (category == null || category.isBlank()) ? null : category.toUpperCase().trim();
         String st = (state == null || state.isBlank()) ? null : state.trim();
+        String nt = (noticeType == null || noticeType.isBlank()) ? null : noticeType.toUpperCase().trim();
 
         Sort sort = switch (sortBy == null ? "newest" : sortBy.toLowerCase()) {
             case "deadline" ->
@@ -53,7 +55,11 @@ public class JobNoticeService {
         };
 
         PageRequest pageable = PageRequest.of(page, Math.min(size, 50), sort);
-        Page<JobNotice> notices = repository.findWithFilters(cat, st, fromDate, toDate, pageable);
+
+        LocalDateTime fromDateTime = fromDate == null ? null : fromDate.atStartOfDay();
+        LocalDateTime toDateTime = toDate == null ? null : toDate.atTime(23, 59, 59, 999999999);
+
+        Page<JobNotice> notices = repository.findWithFilters(cat, st, nt, fromDateTime, toDateTime, pageable);
         return notices.map(this::toDto);
     }
 

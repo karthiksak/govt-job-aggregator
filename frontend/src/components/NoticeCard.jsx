@@ -34,8 +34,9 @@ export default function NoticeCard({ notice }) {
     const expired = isExpired(notice.lastDate);
     const fresh = isNew(notice.publishedDate);
 
-    // Only show publishedDate
-    const postedLabel = formatDate(notice.publishedDate);
+    // Show publishedDate, fallback to fetchedAt if not scraped
+    const postedDate = notice.publishedDate || notice.fetchedAt;
+    const postedLabel = formatDate(postedDate);
 
     return (
         <article
@@ -45,10 +46,23 @@ export default function NoticeCard({ notice }) {
         >
             {/* Header: category badge + NEW + state */}
             <div className="card-header">
-                <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap' }}>
+                <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap', alignItems: 'center' }}>
                     <span className={`category-badge ${notice.category}`}>
                         {icon} {notice.category}
                     </span>
+                    {notice.noticeType && (
+                        <span style={{
+                            background: 'var(--color-surface-2)',
+                            color: 'var(--color-text-secondary)',
+                            fontSize: '0.62rem',
+                            fontWeight: 600,
+                            padding: '0.15rem 0.45rem',
+                            borderRadius: '4px',
+                            border: '1px solid var(--color-border)'
+                        }}>
+                            {notice.noticeType.replace('_', ' ')}
+                        </span>
+                    )}
                     {fresh && (
                         <span style={{
                             background: '#FEF3C7', color: '#92400E', fontSize: '0.62rem',
@@ -63,7 +77,7 @@ export default function NoticeCard({ notice }) {
             </div>
 
             {/* Title */}
-            <h2 className="card-title" title={notice.title}>
+            <h2 className="card-title" title={notice.title} style={{ fontSize: '1rem', letterSpacing: '-0.01em', fontWeight: 700 }}>
                 {notice.title}
             </h2>
 

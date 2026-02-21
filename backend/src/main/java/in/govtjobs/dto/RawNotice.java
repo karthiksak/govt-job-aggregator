@@ -17,4 +17,5 @@ public class RawNotice {
     private String sourceUrl;
     private String category;
     private String state;
+    private String noticeType;
 }

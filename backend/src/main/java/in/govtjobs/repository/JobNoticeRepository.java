@@ -40,13 +40,15 @@ public interface JobNoticeRepository extends JpaRepository<JobNotice, UUID> {
                         SELECT j FROM JobNotice j
                         WHERE (:category IS NULL OR j.category = :category)
                         AND   (:state    IS NULL OR j.state    = :state)
+                        AND   (:noticeType IS NULL OR j.noticeType = :noticeType)
                         AND   (:fromDate IS NULL OR j.fetchedAt >= :fromDate)
                         AND   (:toDate   IS NULL OR j.fetchedAt <= :toDate)
                         """)
         Page<JobNotice> findWithFilters(
                         @Param("category") String category,
                         @Param("state") String state,
-                        @Param("fromDate") java.time.Instant fromDate,
-                        @Param("toDate") java.time.Instant toDate,
+                        @Param("noticeType") String noticeType,
+                        @Param("fromDate") java.time.LocalDateTime fromDate,
+                        @Param("toDate") java.time.LocalDateTime toDate,
                         Pageable pageable);
 }

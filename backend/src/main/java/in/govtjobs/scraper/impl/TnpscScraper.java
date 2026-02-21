@@ -63,24 +63,24 @@ public class TnpscScraper implements JobNoticeSource {
             }
 
             for (Element link : links) {
-                String title = utils.cleanTitle(link.text());
-                if (title.length() < 10)
+                String title = utils.buildTitle(link);
+                if (title.length() < 10 || utils.isJunkTitle(title))
                     continue;
                 if (!isRelevantTitle(title))
                     continue;
 
                 String href = utils.absoluteUrl(BASE_URL, link.attr("href"));
-                String parentText = link.parent() != null ? link.parent().text() : "";
 
                 notices.add(RawNotice.builder()
-                        .title(title)
+                        .title(utils.normalizeTitleForDisplay(title))
                         .applyUrl(href)
                         .sourceName(getSourceName())
                         .sourceUrl(getSourceUrl())
                         .category(getCategory())
                         .state(getState())
-                        .publishedDate(utils.parseDate(extractDate(parentText, 0)))
-                        .lastDate(utils.parseDate(extractDate(parentText, 0)))
+                        .noticeType(utils.categorizeNoticeType(title))
+                        .publishedDate(utils.parseDate(utils.extractDateFromAncestor(link, 0)))
+                        .lastDate(utils.parseDate(utils.extractDateFromAncestor(link, 1)))
                         .build());
 
                 if (notices.size() >= 30)
@@ -98,17 +98,5 @@ public class TnpscScraper implements JobNoticeSource {
         return t.contains("recruit") || t.contains("notification") || t.contains("post")
                 || t.contains("exam") || t.contains("vacancy") || t.contains("selection")
                 || t.contains("group") || t.contains("combined") || t.contains("tnpsc");
-    }
-
-    private String extractDate(String text, int index) {
-        java.util.regex.Matcher m = java.util.regex.Pattern
-                .compile("\\d{2}[-./ ]\\d{2}[-./ ]\\d{4}").matcher(text);
-        int i = 0;
-        while (m.find()) {
-            if (i == index)
-                return m.group();
-            i++;
-        }
-        return null;
     }
 }

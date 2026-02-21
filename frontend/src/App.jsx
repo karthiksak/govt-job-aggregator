@@ -11,6 +11,7 @@ const DEFAULT_FILTERS = {
     state: '',
     period: 'all',
     sortBy: 'newest',
+    noticeType: '',
     page: 0,
     size: 18,
 };
@@ -39,6 +40,7 @@ export default function App() {
             const params = {
                 ...(filters.category && { category: filters.category }),
                 ...(filters.state && { state: filters.state }),
+                ...(filters.noticeType && { noticeType: filters.noticeType }),
                 period: filters.period,
                 sortBy: filters.sortBy || 'newest',
                 page: filters.page,
@@ -46,7 +48,18 @@ export default function App() {
             };
 
             const data = await fetchNotices(params);
-            setNotices(data.content || []);
+
+            if (filters.page === 0) {
+                setNotices(data.content || []);
+            } else {
+                setNotices(prev => {
+                    // Prevent duplicates when appending
+                    const newNotices = (data.content || []).filter(
+                        newN => !prev.some(existingN => existingN.id === newN.id)
+                    );
+                    return [...prev, ...newNotices];
+                });
+            }
             setTotalPages(data.totalPages || 0);
             setTotalElements(data.totalElements || 0);
         } catch (err) {

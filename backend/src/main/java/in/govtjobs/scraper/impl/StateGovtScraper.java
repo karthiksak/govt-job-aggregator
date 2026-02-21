@@ -12,8 +12,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Scrapes State Government job notifications.
@@ -87,13 +85,15 @@ public class StateGovtScraper implements JobNoticeSource {
 
             for (Element link : links) {
                 String title = buildTitle(link);
-                if (title.length() < 10 || !isJobRelated(title))
+                if (title.length() < 10 || utils.isJunkTitle(title) || !isJobRelated(title))
                     continue;
 
-                String href = utils.absoluteUrl(TNPSC_BASE, link.attr("href"));
-                String rowText = link.parent() != null ? link.parent().text() : link.text();
+                String href = link.attr("href");
+                if (href.toLowerCase().contains("javascript:"))
+                    continue;
+                href = utils.absoluteUrl(TNPSC_BASE, href);
 
-                list.add(buildNotice(title, href, "TNPSC (Tamil Nadu PSC)", TNPSC_BASE, "Tamil Nadu", rowText));
+                list.add(buildNotice(title, href, "TNPSC (Tamil Nadu PSC)", TNPSC_BASE, "Tamil Nadu", link));
                 if (list.size() >= 15)
                     break;
             }
@@ -115,13 +115,15 @@ public class StateGovtScraper implements JobNoticeSource {
 
             for (Element link : links) {
                 String title = buildTitle(link);
-                if (title.length() < 10 || !isJobRelated(title))
+                if (title.length() < 10 || utils.isJunkTitle(title) || !isJobRelated(title))
                     continue;
 
-                String href = utils.absoluteUrl(KPSC_BASE, link.attr("href"));
-                String rowText = link.parent() != null ? link.parent().text() : link.text();
+                String href = link.attr("href");
+                if (href.toLowerCase().contains("javascript:"))
+                    continue;
+                href = utils.absoluteUrl(KPSC_BASE, href);
 
-                list.add(buildNotice(title, href, "KPSC (Karnataka PSC)", KPSC_BASE, "Karnataka", rowText));
+                list.add(buildNotice(title, href, "KPSC (Karnataka PSC)", KPSC_BASE, "Karnataka", link));
                 if (list.size() >= 10)
                     break;
             }
@@ -143,13 +145,15 @@ public class StateGovtScraper implements JobNoticeSource {
 
             for (Element link : links) {
                 String title = buildTitle(link);
-                if (title.length() < 10 || !isJobRelated(title))
+                if (title.length() < 10 || utils.isJunkTitle(title) || !isJobRelated(title))
                     continue;
 
-                String href = utils.absoluteUrl(MPPSC_BASE, link.attr("href"));
-                String rowText = link.parent() != null ? link.parent().text() : link.text();
+                String href = link.attr("href");
+                if (href.toLowerCase().contains("javascript:"))
+                    continue;
+                href = utils.absoluteUrl(MPPSC_BASE, href);
 
-                list.add(buildNotice(title, href, "MPPSC (Madhya Pradesh PSC)", MPPSC_BASE, "Madhya Pradesh", rowText));
+                list.add(buildNotice(title, href, "MPPSC (Madhya Pradesh PSC)", MPPSC_BASE, "Madhya Pradesh", link));
                 if (list.size() >= 10)
                     break;
             }
@@ -171,13 +175,15 @@ public class StateGovtScraper implements JobNoticeSource {
 
             for (Element link : links) {
                 String title = buildTitle(link);
-                if (title.length() < 10 || !isJobRelated(title))
+                if (title.length() < 10 || utils.isJunkTitle(title) || !isJobRelated(title))
                     continue;
 
-                String href = utils.absoluteUrl(OPSC_BASE, link.attr("href"));
-                String rowText = link.parent() != null ? link.parent().text() : link.text();
+                String href = link.attr("href");
+                if (href.toLowerCase().contains("javascript:"))
+                    continue;
+                href = utils.absoluteUrl(OPSC_BASE, href);
 
-                list.add(buildNotice(title, href, "OPSC (Odisha PSC)", OPSC_BASE, "Odisha", rowText));
+                list.add(buildNotice(title, href, "OPSC (Odisha PSC)", OPSC_BASE, "Odisha", link));
                 if (list.size() >= 10)
                     break;
             }
@@ -193,59 +199,41 @@ public class StateGovtScraper implements JobNoticeSource {
     // -------------------------------------------------------------------------
 
     private RawNotice buildNotice(String title, String href, String sourceName,
-            String sourceUrl, String state, String rowText) {
+            String sourceUrl, String state, Element link) {
         return RawNotice.builder()
-                .title(title)
+                .title(utils.normalizeTitleForDisplay(title))
                 .applyUrl(href)
                 .sourceName(sourceName)
                 .sourceUrl(sourceUrl)
                 .category(getCategory())
                 .state(state)
-                .publishedDate(utils.parseDate(extractDate(rowText, 0)))
-                .lastDate(utils.parseDate(extractDate(rowText, 1)))
+                .noticeType(utils.categorizeNoticeType(title))
+                .publishedDate(utils.parseDate(utils.extractDateFromAncestor(link, 0)))
+                .lastDate(utils.parseDate(utils.extractDateFromAncestor(link, 1)))
                 .build();
     }
 
     /**
-     * Build readable title. Falls back to PDF filename when link text is short.
+     * Build readable title using the shared utility.
      */
     private String buildTitle(Element link) {
-        String text = utils.cleanTitle(link.text());
-        if (text.length() >= 10)
-            return text;
-
-        String href = link.attr("href");
-        if (href.contains("/")) {
-            String filename = href.substring(href.lastIndexOf('/') + 1);
-            filename = filename.replaceAll("(?i)\\.pdf$|\\.doc$|\\.docx$", "")
-                    .replace("_", " ")
-                    .replace("-", " ")
-                    .trim();
-            if (filename.length() >= 10)
-                return filename;
-        }
-        return text;
+        return utils.buildTitle(link);
     }
 
     private boolean isJobRelated(String title) {
         String t = title.toLowerCase();
-        return t.contains("recruit") || t.contains("vacancy") || t.contains("notification")
-                || t.contains("advt") || t.contains("advertisement") || t.contains("examination")
-                || t.contains("result") || t.contains("admit") || t.contains("selection")
-                || t.contains("application") || t.contains("post") || t.contains("officer")
-                || t.contains("engineer") || t.contains("inspector") || t.contains("psc")
-                || t.contains("interview") || t.contains("grade") || t.contains("group")
-                || t.contains("merit") || t.contains("combined") || t.contains("direct recruit");
-    }
 
-    private String extractDate(String text, int index) {
-        Matcher m = Pattern.compile("\\d{1,2}[-./ ]\\d{1,2}[-./ ]\\d{4}").matcher(text);
-        int i = 0;
-        while (m.find()) {
-            if (i == index)
-                return m.group();
-            i++;
+        // Exclude unwanted updates
+        if (t.contains("result") || t.contains("answer key") || t.contains("admit card") ||
+                t.contains("syllabus") || t.contains("mark sheet") || t.contains("corrigendum") ||
+                t.contains("examination rules") || t.equals("odisha public service commission (opsc)")) {
+            return false;
         }
-        return null;
+
+        return t.contains("recruit") || t.contains("vacancy") || t.contains("notification")
+                || t.contains("advt") || t.contains("advertisement") || t.contains("post")
+                || t.contains("officer") || t.contains("engineer") || t.contains("inspector")
+                || t.contains("grade") || t.contains("group") || t.contains("combined")
+                || t.contains("direct recruit");
     }
 }

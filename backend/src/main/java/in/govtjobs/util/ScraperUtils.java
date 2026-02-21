@@ -56,12 +56,11 @@ public class ScraperUtils {
     /** Date pattern: matches dd-MM-yyyy, dd/MM/yyyy, dd.MM.yyyy variants */
     private static final Pattern DATE_REGEX = Pattern.compile(
             "\\b(\\d{1,2})[\\-./](\\d{1,2})[\\-./](\\d{4})\\b|" + // numeric
-                    "\\b(\\d{1,2})\\s+(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*[,.]?\\s+(\\d{4})\\b|" + // 12
-                                                                                                                      // Jan
-                                                                                                                      // 2025
-                    "\\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\\s+(\\d{1,2})[,.]?\\s+(\\d{4})\\b", // Jan
-                                                                                                                    // 12,
-                                                                                                                    // 2025
+                    "\\b(\\d{1,2})\\s+(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*[,.\\-]?\\s*(?:-\\s*)?(\\d{4})\\b|"
+                    + // 12 Jan 2025 or 13 Feb - 2026
+                    "\\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\\s+(\\d{1,2})[,.\\-]?\\s*(?:-\\s*)?(\\d{4})\\b", // Jan
+                                                                                                                                 // 12,
+                                                                                                                                 // 2025
             Pattern.CASE_INSENSITIVE);
 
     /**
@@ -76,7 +75,9 @@ public class ScraperUtils {
             "see details", "view details", "check here", "know more",
             "official", "english", "hindi", "corrigendum", "addendum",
             "important notice", "notice", "home", "news", "latest news",
-            "recruitment", "vacancy", "result", "answer key");
+            "recruitment", "vacancy", "result", "answer key", "about us",
+            "contact us", "skip to main content", "login", "register",
+            "syllabus", "careers", "tenders", "rti", "archives");
 
     static {
         // Install a trust-all SSL context so Indian govt sites with self-signed
@@ -153,7 +154,8 @@ public class ScraperUtils {
             return null;
         String cleaned = dateStr.trim()
                 .replaceAll("\\s+", " ")
-                .replaceAll("(st|nd|rd|th)(?=\\s)", "")
+                .replaceAll("(?i)(st|nd|rd|th)(?=\\s)", "")
+                .replaceAll("(?i)([a-z]+)[,.\\-]?\\s*-\\s*(\\d{4})", "$1 $2") // Handles "Feb - 2026"
                 .trim();
         for (DateTimeFormatter fmt : DATE_FORMATS) {
             try {
@@ -258,7 +260,11 @@ public class ScraperUtils {
         // 4. First meaningful segment from ancestor row text
         Element ancestor = link.parent();
         for (int d = 0; d < 4 && ancestor != null; d++) {
-            String rowText = ancestor.ownText().trim();
+            String tag = ancestor.tagName().toLowerCase();
+            if (tag.equals("body") || tag.equals("html") || tag.equals("main") || tag.equals("article")) {
+                break;
+            }
+            String rowText = ancestor.text().trim();
             if (rowText.length() >= 15) {
                 // Take up to 120 chars
                 return cleanTitle(rowText.length() > 120 ? rowText.substring(0, 120) + "…" : rowText);
@@ -283,17 +289,63 @@ public class ScraperUtils {
     }
 
     /**
-     * Generate SHA-256 hash for deduplication.
+     * Generate SHA-256 hash for deduplication. Uses normalized title to prevent
+     * duplicates.
      */
     public String hash(String title, String sourceName) {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
-            String input = (title + "|" + sourceName).toLowerCase().trim();
+            String normalizedTitle = normalizeTitleForDisplay(title);
+            String input = (normalizedTitle + "|" + sourceName).toLowerCase().trim();
             byte[] digest = md.digest(input.getBytes(StandardCharsets.UTF_8));
             return HexFormat.of().formatHex(digest);
         } catch (NoSuchAlgorithmException e) {
             return String.valueOf((title + sourceName).hashCode());
         }
+    }
+
+    /**
+     * Categorizes a notice into RECRUITMENT, EXAM_ADMIT_CARD, RESULT, CALENDAR, or
+     * GENERAL_INFO.
+     */
+    public String categorizeNoticeType(String title) {
+        if (title == null || title.isBlank())
+            return "GENERAL_INFO";
+        String lower = title.toLowerCase();
+
+        if (lower.contains("result") || lower.contains("merit list") || lower.contains("selection list")
+                || lower.contains("marks") || lower.contains("cut off") || lower.contains("score")) {
+            return "RESULT";
+        }
+        if (lower.contains("admit card") || lower.contains("hall ticket") || lower.contains("exam date")
+                || lower.contains("interview schedule") || lower.contains("call letter")) {
+            return "EXAM_ADMIT_CARD";
+        }
+        if (lower.contains("calendar") || lower.contains("planner") || lower.contains("schedule")) {
+            return "CALENDAR";
+        }
+        if (lower.contains("recruit") || lower.contains("vacancy") || lower.contains("notification")
+                || lower.contains("advt") || lower.contains("apply") || lower.contains("post")
+                || lower.contains("officer") || lower.contains("clerk")) {
+            return "RECRUITMENT";
+        }
+        return "GENERAL_INFO";
+    }
+
+    /**
+     * Cleans up the title for display by removing redundant prefixes and extra
+     * whitespace.
+     */
+    public String normalizeTitleForDisplay(String raw) {
+        if (raw == null)
+            return "";
+        String cleaned = cleanTitle(raw);
+        cleaned = cleaned
+                .replaceAll("(?i)^(Update:|Flash:|New:|Latest:|Notice:|Advertisement:|Advt:|Notification:)\\s*", "");
+        if (cleaned.length() > 200) {
+            cleaned = cleaned.substring(0, 197) + "...";
+        }
+        return cleaned.trim();
     }
 
     /**

@@ -11,6 +11,15 @@ const CATEGORIES = [
     { key: 'OTHERS', label: '📌 Others' },
 ];
 
+const NOTICE_TYPES = [
+    { key: '', label: '📑 All Types' },
+    { key: 'RECRUITMENT', label: '💼 Recruitment' },
+    { key: 'EXAM_ADMIT_CARD', label: '🎟️ Exam/Admit Card' },
+    { key: 'RESULT', label: '🏆 Result/Merit' },
+    { key: 'CALENDAR', label: '📆 Calendar/Schedule' },
+    { key: 'GENERAL_INFO', label: 'ℹ️ General Info' },
+];
+
 const PERIODS = [
     { key: 'all', label: '📅 All Time' },
     { key: 'today', label: '🔴 Today' },
@@ -29,6 +38,9 @@ export default function FilterBar({ filters, onFilterChange, states, totalCount 
     };
     const handlePeriod = (period) => {
         onFilterChange({ period, page: 0 });
+    };
+    const handleNoticeType = (e) => {
+        onFilterChange({ noticeType: e.target.value, page: 0 });
     };
     const handleState = (e) => {
         onFilterChange({ state: e.target.value, page: 0 });
@@ -87,6 +99,18 @@ export default function FilterBar({ filters, onFilterChange, states, totalCount 
                         {states
                             .filter(s => s !== 'Central' && s !== 'Tamil Nadu')
                             .map(s => <option key={s} value={s}>{s}</option>)}
+                    </select>
+
+                    {/* Notice Type dropdown */}
+                    <select
+                        className="filter-select"
+                        value={filters.noticeType || ''}
+                        onChange={handleNoticeType}
+                        aria-label="Filter by notice type"
+                    >
+                        {NOTICE_TYPES.map(n => (
+                            <option key={n.key} value={n.key}>{n.label}</option>
+                        ))}
                     </select>
 
                     {/* Sort dropdown */}

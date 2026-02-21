@@ -12,8 +12,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Scrapes government medical / health sector job notifications.
@@ -87,12 +85,13 @@ public class MedicalJobsScraper implements JobNoticeSource {
                 links = doc.select("table tr a, ul li a, div a");
 
             for (Element link : links) {
-                String title = utils.cleanTitle(link.text());
-                if (title.length() < 10 || !isMedicalOrRelevant(title))
+                String title = utils.buildTitle(link);
+                if (title.length() < 10 || utils.isJunkTitle(title))
+                    continue;
+                if (!isMedicalOrRelevant(title))
                     continue;
                 String href = utils.absoluteUrl(AIIMS_BASE, link.attr("href"));
-                String rowText = safeParentText(link);
-                list.add(buildNotice(title, href, "AIIMS New Delhi", AIIMS_BASE, "Central", rowText));
+                list.add(buildNotice(title, href, "AIIMS New Delhi", AIIMS_BASE, "Central", link));
                 if (list.size() >= 20)
                     break;
             }
@@ -116,13 +115,12 @@ public class MedicalJobsScraper implements JobNoticeSource {
             Document doc = utils.fetchPageLax(ESIC_URL);
             Elements links = doc.select("a[href*='recruit'], a[href*='pdf'], a[href*='vacancy'], table tr a, ul li a");
             for (Element link : links) {
-                String title = utils.cleanTitle(link.text());
-                if (title.length() < 10)
+                String title = utils.buildTitle(link);
+                if (title.length() < 10 || utils.isJunkTitle(title))
                     continue;
                 String href = utils.absoluteUrl(ESIC_BASE, link.attr("href"));
-                String rowText = safeParentText(link);
                 list.add(buildNotice(title, href, "ESIC (Employees' State Insurance Corporation)", ESIC_BASE, "Central",
-                        rowText));
+                        link));
                 if (list.size() >= 20)
                     break;
             }
@@ -150,15 +148,14 @@ public class MedicalJobsScraper implements JobNoticeSource {
             Elements links = doc.select(
                     "a[href*='.pdf'], a[href*='recruit'], a[href*='vacancy'], a[href*='advt'], table td a, ul li a");
             for (Element link : links) {
-                String title = utils.cleanTitle(link.text());
-                if (title.length() < 10)
+                String title = utils.buildTitle(link);
+                if (title.length() < 10 || utils.isJunkTitle(title))
                     continue;
                 // Strict filter: must have a recruitment-type word
                 if (!hasRecruitmentKeyword(title))
                     continue;
                 String href = utils.absoluteUrl(NHM_BASE, link.attr("href"));
-                String rowText = safeParentText(link);
-                list.add(buildNotice(title, href, "NHM (National Health Mission)", NHM_BASE, "Central", rowText));
+                list.add(buildNotice(title, href, "NHM (National Health Mission)", NHM_BASE, "Central", link));
                 if (list.size() >= 20)
                     break;
             }
@@ -182,13 +179,14 @@ public class MedicalJobsScraper implements JobNoticeSource {
                 links = doc.select("a");
 
             for (Element link : links) {
-                String title = utils.cleanTitle(link.text());
-                if (title.length() < 10 || !isMedicalOrRelevant(title))
+                String title = utils.buildTitle(link);
+                if (title.length() < 10 || utils.isJunkTitle(title))
+                    continue;
+                if (!isMedicalOrRelevant(title))
                     continue;
                 String href = utils.absoluteUrl(MRB_BASE, link.attr("href"));
-                String rowText = safeParentText(link);
                 list.add(buildNotice(title, href, "MRB Tamil Nadu (Medical Recruitment Board)",
-                        MRB_BASE, "Tamil Nadu", rowText));
+                        MRB_BASE, "Tamil Nadu", link));
                 if (list.size() >= 20)
                     break;
             }
@@ -203,16 +201,17 @@ public class MedicalJobsScraper implements JobNoticeSource {
     // Shared helpers
     // -------------------------------------------------------------------------
     private RawNotice buildNotice(String title, String href, String sourceName,
-            String sourceUrl, String state, String rowText) {
+            String sourceUrl, String state, Element link) {
         return RawNotice.builder()
-                .title(title)
+                .title(utils.normalizeTitleForDisplay(title))
                 .applyUrl(href)
                 .sourceName(sourceName)
                 .sourceUrl(sourceUrl)
                 .category(getCategory())
                 .state(state)
-                .publishedDate(utils.parseDate(extractDate(rowText, 0)))
-                .lastDate(utils.parseDate(extractDate(rowText, 1)))
+                .noticeType(utils.categorizeNoticeType(title))
+                .publishedDate(utils.parseDate(utils.extractDateFromAncestor(link, 0)))
+                .lastDate(utils.parseDate(utils.extractDateFromAncestor(link, 1)))
                 .build();
     }
 
@@ -243,20 +242,5 @@ public class MedicalJobsScraper implements JobNoticeSource {
                 || t.contains("selection") || t.contains("walk-in") || t.contains("walkin")
                 || t.contains("engage") || t.contains("appoint") || t.contains("post of")
                 || t.contains("position") || t.contains("hiring");
-    }
-
-    private String safeParentText(Element el) {
-        return el.parent() != null ? el.parent().text() : el.text();
-    }
-
-    private String extractDate(String text, int index) {
-        Matcher m = Pattern.compile("\\d{1,2}[-./ ]\\d{1,2}[-./ ]\\d{4}").matcher(text);
-        int i = 0;
-        while (m.find()) {
-            if (i == index)
-                return m.group();
-            i++;
-        }
-        return null;
     }
 }

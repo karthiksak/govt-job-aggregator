@@ -14,6 +14,7 @@ import java.util.UUID;
 @Table(name = "job_notices", indexes = {
         @Index(name = "idx_category", columnList = "category"),
         @Index(name = "idx_state", columnList = "state"),
+        @Index(name = "idx_notice_type", columnList = "noticeType"),
         @Index(name = "idx_published_date", columnList = "publishedDate"),
         @Index(name = "idx_content_hash", columnList = "contentHash", unique = true)
 })
@@ -41,6 +42,12 @@ public class JobNotice {
      */
     @Column(nullable = false, length = 100)
     private String state;
+
+    /**
+     * Notice type: RECRUITMENT, EXAM_ADMIT_CARD, RESULT, CALENDAR, GENERAL_INFO
+     */
+    @Column(length = 50)
+    private String noticeType;
 
     @Column(nullable = false, length = 200)
     private String sourceName;

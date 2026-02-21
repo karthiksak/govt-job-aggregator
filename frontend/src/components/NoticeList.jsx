@@ -1,57 +1,67 @@
 import NoticeCard from './NoticeCard.jsx';
 import SkeletonCard from './Skeleton.jsx';
 
-function Pagination({ page, totalPages, onPageChange }) {
-    if (totalPages <= 1) return null;
-
-    const pages = Array.from({ length: Math.min(totalPages, 7) }, (_, i) => {
-        if (totalPages <= 7) return i;
-        // Sliding window
-        if (page < 4) return i;
-        if (page > totalPages - 5) return totalPages - 7 + i;
-        return page - 3 + i;
-    });
-
+function AdPlaceholder() {
     return (
-        <nav className="pagination" aria-label="Pagination">
-            <button
-                className="page-btn"
-                onClick={() => onPageChange(page - 1)}
-                disabled={page === 0}
-                aria-label="Previous page"
-            >‹</button>
-            {pages.map(p => (
-                <button
-                    key={p}
-                    className={`page-btn ${p === page ? 'active' : ''}`}
-                    onClick={() => onPageChange(p)}
-                    aria-current={p === page ? 'page' : undefined}
-                >
-                    {p + 1}
-                </button>
-            ))}
-            <button
-                className="page-btn"
-                onClick={() => onPageChange(page + 1)}
-                disabled={page >= totalPages - 1}
-                aria-label="Next page"
-            >›</button>
-        </nav>
+        <div style={{
+            background: '#f8fafc',
+            border: '1px dashed #cbd5e1',
+            borderRadius: '10px',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            minHeight: '120px',
+            color: '#64748b',
+            fontSize: '0.85rem',
+            padding: '1rem',
+            textAlign: 'center'
+        }}>
+            <span style={{ fontSize: '1.2rem', marginBottom: '0.25rem' }}>📢</span>
+            <span style={{ fontWeight: 600 }}>Advertisement</span>
+            <span style={{ fontSize: '0.7rem' }}>AdSense Space (In-Feed)</span>
+        </div>
     );
 }
 
+import { useEffect, useRef } from 'react';
+
+// Pagination component removed in favor of infinite scroll
+
 export default function NoticeList({ notices, loading, page, totalPages, onPageChange }) {
-    if (loading) {
-        return (
-            <div>
+    const observerTarget = useRef(null);
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            entries => {
+                if (entries[0].isIntersecting && !loading && page < totalPages - 1) {
+                    onPageChange(page + 1);
+                }
+            },
+            { threshold: 0.1 }
+        );
+
+        const currentTarget = observerTarget.current;
+        if (currentTarget) {
+            observer.observe(currentTarget);
+        }
+
+        return () => {
+            if (currentTarget) {
+                observer.unobserve(currentTarget);
+            }
+        };
+    }, [observerTarget, loading, page, totalPages, onPageChange]);
+
+    if (!notices || notices.length === 0) {
+        if (loading) {
+            return (
                 <div className="notices-grid" aria-busy="true" aria-label="Loading notices">
                     {Array.from({ length: 9 }).map((_, i) => <SkeletonCard key={i} />)}
                 </div>
-            </div>
-        );
-    }
+            );
+        }
 
-    if (!notices || notices.length === 0) {
         return (
             <div className="empty-state" role="status">
                 <div className="emoji">🔍</div>
@@ -64,11 +74,27 @@ export default function NoticeList({ notices, loading, page, totalPages, onPageC
     return (
         <div>
             <div className="notices-grid">
-                {notices.map(notice => (
-                    <NoticeCard key={notice.id} notice={notice} />
+                {notices.map((notice, index) => (
+                    <div key={notice.id || index} style={{ display: 'contents' }}>
+                        <NoticeCard notice={notice} />
+                        {/* Inject an Ad placeholder every 6 items */}
+                        {(index > 0 && (index + 1) % 6 === 0) && (
+                            <AdPlaceholder />
+                        )}
+                    </div>
                 ))}
             </div>
-            <Pagination page={page} totalPages={totalPages} onPageChange={onPageChange} />
+
+            {loading && (
+                <div className="notices-grid" style={{ marginTop: '2rem' }} aria-busy="true">
+                    {Array.from({ length: 3 }).map((_, i) => <SkeletonCard key={`skel-${i}`} />)}
+                </div>
+            )}
+
+            {/* Intersection Observer Sentinel */}
+            {!loading && page < totalPages - 1 && (
+                <div ref={observerTarget} style={{ height: '50px', width: '100%' }} />
+            )}
         </div>
     );
 }

@@ -14,6 +14,7 @@ public class JobNoticeDto {
     private String title;
     private String category;
     private String state;
+    private String noticeType;
     private String sourceName;
     private String sourceUrl;
     private String applyUrl;
