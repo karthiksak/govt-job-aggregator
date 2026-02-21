@@ -1,10 +1,12 @@
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Helmet } from 'react-helmet-async';
 import Header from './components/Header.jsx';
 import FilterBar from './components/FilterBar.jsx';
 import NoticeList from './components/NoticeList.jsx';
 import EngineeringTab from './components/EngineeringTab.jsx';
 import SavedNotices from './components/SavedNotices.jsx';
+import DualStateView from './components/DualStateView.jsx';
+import StateOnboarding, { useStateOnboarding } from './components/StateOnboarding.jsx';
 import Footer from './components/Footer.jsx';
 import useSavedNotices from './hooks/useSavedNotices.js';
 import { fetchNotices, fetchStates, triggerRefresh, fetchNewCount } from './api/notices.js';
@@ -20,8 +22,6 @@ const DEFAULT_FILTERS = {
     size: 18,
 };
 
-const LAST_VISIT_KEY = 'govtjobs_last_visit';
-
 export default function App() {
     const [activeTab, setActiveTab] = useState('jobs'); // 'jobs' | 'engineering' | 'saved'
     const [filters, setFilters] = useState(DEFAULT_FILTERS);
@@ -34,6 +34,7 @@ export default function App() {
     const [toast, setToast] = useState(null);
     const [refreshing, setRefreshing] = useState(false);
     const [newCount, setNewCount] = useState(0);
+    const { selectedState, showOnboarding, completeOnboarding, resetState } = useStateOnboarding();
     const { savedIds, savedNotices, isSaved, toggleSave } = useSavedNotices();
 
     const showToast = (msg) => {
@@ -41,10 +42,7 @@ export default function App() {
         setTimeout(() => setToast(null), 3000);
     };
 
-    // On mount: record last visit & fetch new count
     useEffect(() => {
-        const last = localStorage.getItem(LAST_VISIT_KEY);
-        localStorage.setItem(LAST_VISIT_KEY, new Date().toISOString());
         fetchNewCount().then(c => setNewCount(c || 0)).catch(() => { });
         fetchStates().then(s => setStates(s || [])).catch(() => { });
     }, []);
@@ -64,25 +62,18 @@ export default function App() {
             };
             const data = await fetchNotices(params);
             let content = data.content || [];
-
-            // Client-side "show new only" filter based on backend isNew flag
-            if (filters.showNewOnly) {
-                content = content.filter(n => n.new);
-            }
-
+            if (filters.showNewOnly) content = content.filter(n => n.new);
             if (filters.page === 0) {
                 setNotices(content);
             } else {
                 setNotices(prev => {
-                    const newNotices = content.filter(
-                        newN => !prev.some(existingN => existingN.id === newN.id)
-                    );
-                    return [...prev, ...newNotices];
+                    const newItems = content.filter(newN => !prev.some(e => e.id === newN.id));
+                    return [...prev, ...newItems];
                 });
             }
             setTotalPages(data.totalPages || 0);
             setTotalElements(data.totalElements || 0);
-        } catch (err) {
+        } catch {
             setError('Unable to load notices. Please ensure the backend is running.');
             setNotices([]);
         } finally {
@@ -115,25 +106,26 @@ export default function App() {
 
     const handleTabChange = (tab) => {
         setActiveTab(tab);
-        if (tab === 'jobs') {
-            setFilters(DEFAULT_FILTERS);
-        }
+        if (tab === 'jobs') setFilters(DEFAULT_FILTERS);
     };
 
-    // SEO
+    // SEO titles per context
     const pageTitle = activeTab === 'engineering'
         ? 'Engineering Govt Jobs — JE, PSU, Apprenticeship | GovtJobs.in'
-        : activeTab === 'saved'
-            ? 'Saved Notices | GovtJobs.in'
-            : filters.category
-                ? `${filters.category} Govt Jobs India — GovtJobs.in`
-                : filters.state
-                    ? `${filters.state} Sarkari Naukri — GovtJobs.in`
+        : activeTab === 'saved' ? 'Saved Notices | GovtJobs.in'
+            : selectedState
+                ? `${selectedState} & Central Govt Jobs 2026 | GovtJobs.in`
+                : filters.state ? `${filters.state} Sarkari Naukri — GovtJobs.in`
                     : 'Latest Sarkari Naukri 2026 — GovtJobs.in';
 
-    const metaDescription = activeTab === 'engineering'
-        ? 'Engineering government jobs — JE, GET, PSU Recruitment, Apprenticeship for B.E/B.Tech, Diploma, ITI graduates. Civil, Mechanical, Electrical, ECE, CSE branches. Updated every 6 hours.'
-        : `Latest ${filters.category || 'government'} job notifications from Indian Govt, SSC, Banks, RRB, UPSC, PSU${filters.state ? ', ' + filters.state : ''}. Updated every 6 hours.`;
+    const metaDescription = selectedState
+        ? `Latest ${selectedState} state government and central government job notifications — SSC, UPSC, Banks, Railways, PSU. Updated every 6 hours.`
+        : `Latest government job notifications from Indian Govt, SSC, Banks, RRB, UPSC, PSU. Updated every 6 hours.`;
+
+    // Show onboarding if not yet answered
+    if (showOnboarding) {
+        return <StateOnboarding onComplete={completeOnboarding} />;
+    }
 
     return (
         <>
@@ -141,7 +133,6 @@ export default function App() {
                 <title>{pageTitle}</title>
                 <meta name="description" content={metaDescription} />
                 <meta property="og:title" content={pageTitle} />
-                <meta property="og:description" content={metaDescription} />
             </Helmet>
 
             <Header
@@ -149,44 +140,36 @@ export default function App() {
                 onTabChange={handleTabChange}
                 newCount={newCount}
                 savedCount={savedIds.length}
+                selectedState={selectedState}
+                onChangeState={resetState}
             />
 
             {/* Hero */}
             <section className="hero" aria-labelledby="hero-heading">
                 <div className="container">
                     <h1 id="hero-heading">
-                        {activeTab === 'engineering'
-                            ? '⚙️ Engineering Govt Jobs India'
-                            : activeTab === 'saved'
-                                ? '⭐ Your Saved Notices'
-                                : '🇮🇳 Latest Government Job Notifications'}
+                        {activeTab === 'engineering' ? '⚙️ Engineering Govt Jobs India'
+                            : activeTab === 'saved' ? '⭐ Your Saved Notices'
+                                : selectedState ? `📍 ${selectedState} + Central Govt Jobs`
+                                    : '🇮🇳 Latest Government Job Notifications'}
                     </h1>
-                    {activeTab === 'jobs' && (
-                        <p>SSC · Bank · RRB · UPSC · PSU · State Govt — All official sources, one place.</p>
-                    )}
-                    {activeTab === 'engineering' && (
-                        <p>JE · GET · PSU · Apprenticeship — B.E/B.Tech, Diploma & ITI — All branches covered.</p>
-                    )}
-                    {activeTab === 'jobs' && (
+                    <p>
+                        {selectedState
+                            ? `${selectedState} State Govt · SSC · Bank · RRB · UPSC · PSU — One page, two views.`
+                            : 'SSC · Bank · RRB · UPSC · PSU · State Govt — All official sources, one place.'}
+                    </p>
+                    {activeTab === 'jobs' && !selectedState && (
                         <div className="hero-stats">
-                            <div className="hero-stat">
-                                <div className="num">{totalElements.toLocaleString('en-IN')}</div>
-                                <div className="lbl">Total Notices</div>
-                            </div>
-                            <div className="hero-stat">
-                                <div className="num">8+</div>
-                                <div className="lbl">Official Sources</div>
-                            </div>
-                            <div className="hero-stat">
-                                <div className="num">6hrs</div>
-                                <div className="lbl">Update Frequency</div>
-                            </div>
+                            <div className="hero-stat"><div className="num">{totalElements.toLocaleString('en-IN')}</div><div className="lbl">Total Notices</div></div>
+                            <div className="hero-stat"><div className="num">8+</div><div className="lbl">Official Sources</div></div>
+                            <div className="hero-stat"><div className="num">6hrs</div><div className="lbl">Update Frequency</div></div>
                         </div>
                     )}
                 </div>
             </section>
 
-            {activeTab === 'jobs' && (
+            {/* Only show FilterBar in 'All Jobs' mode without a selected state */}
+            {activeTab === 'jobs' && !selectedState && (
                 <FilterBar
                     filters={filters}
                     onFilterChange={handleFilterChange}
@@ -195,99 +178,99 @@ export default function App() {
                 />
             )}
 
+            {/* Simplified filter bar for the dual-state view */}
+            {activeTab === 'jobs' && selectedState && (
+                <div className="filter-section" style={{ padding: '0.6rem 0' }}>
+                    <div className="container" style={{ display: 'flex', gap: '0.75rem', alignItems: 'center', flexWrap: 'wrap' }}>
+                        <span style={{ fontSize: '0.78rem', color: 'var(--color-text-muted)', fontWeight: 600 }}>Sort:</span>
+                        {['newest', 'deadline', 'fetched'].map(s => (
+                            <button
+                                key={s}
+                                className={`pill period-pill${filters.sortBy === s ? ' active' : ''}`}
+                                style={{ fontSize: '0.75rem' }}
+                                onClick={() => handleFilterChange({ sortBy: s })}
+                            >
+                                {s === 'newest' ? '🆕 Newest' : s === 'deadline' ? '⏳ Deadline' : '🔄 Recent'}
+                            </button>
+                        ))}
+                        <span style={{ fontSize: '0.78rem', color: 'var(--color-text-muted)', marginLeft: '0.5rem', fontWeight: 600 }}>Type:</span>
+                        <select
+                            className="filter-select"
+                            value={filters.noticeType || ''}
+                            onChange={e => handleFilterChange({ noticeType: e.target.value })}
+                            style={{ fontSize: '0.78rem' }}
+                        >
+                            <option value="">All Types</option>
+                            <option value="RECRUITMENT">Recruitment</option>
+                            <option value="APPRENTICESHIP">Apprenticeship</option>
+                            <option value="EXAM_ADMIT_CARD">Exam/Admit Card</option>
+                            <option value="RESULT">Result</option>
+                        </select>
+                        <button
+                            onClick={handleRefresh}
+                            disabled={refreshing}
+                            className="pill"
+                            style={{ marginLeft: 'auto', fontSize: '0.75rem' }}
+                        >
+                            {refreshing ? '⟳ Refreshing...' : '🔄 Refresh'}
+                        </button>
+                    </div>
+                </div>
+            )}
+
             <main className="notices-section" id="notices">
                 <div className="container">
-                    {activeTab === 'jobs' && (
+                    {activeTab === 'jobs' && selectedState && (
+                        <DualStateView
+                            selectedState={selectedState}
+                            filters={filters}
+                            isSaved={isSaved}
+                            toggleSave={toggleSave}
+                        />
+                    )}
+
+                    {activeTab === 'jobs' && !selectedState && (
                         <>
-                            {/* Toolbar */}
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem', flexWrap: 'wrap', gap: '0.5rem' }}>
-                                <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center', flexWrap: 'wrap' }}>
-                                    <p style={{ fontSize: '0.82rem', color: 'var(--color-text-muted)' }}>
-                                        Showing {notices.length} of {totalElements.toLocaleString('en-IN')} notices
-                                        {filters.category && ` · ${filters.category}`}
-                                        {filters.state && ` · ${filters.state}`}
-                                    </p>
+                                <p style={{ fontSize: '0.82rem', color: 'var(--color-text-muted)' }}>
+                                    Showing {notices.length} of {totalElements.toLocaleString('en-IN')} notices
+                                </p>
+                                <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
                                     {newCount > 0 && (
-                                        <span style={{
-                                            background: '#FF9933', color: 'white',
-                                            fontSize: '0.7rem', fontWeight: 700,
-                                            padding: '0.2rem 0.5rem', borderRadius: '100px'
-                                        }}>
-                                            🆕 {newCount} new in last 24h
+                                        <span style={{ background: '#FF9933', color: 'white', fontSize: '0.7rem', fontWeight: 700, padding: '0.2rem 0.5rem', borderRadius: '100px' }}>
+                                            🆕 {newCount} new
                                         </span>
                                     )}
-                                </div>
-                                <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
                                     <button
                                         onClick={() => handleFilterChange({ showNewOnly: !filters.showNewOnly, page: 0 })}
-                                        style={{
-                                            padding: '0.35rem 0.8rem',
-                                            border: `1.5px solid ${filters.showNewOnly ? '#FF9933' : 'var(--color-border)'}`,
-                                            borderRadius: '100px',
-                                            background: filters.showNewOnly ? '#FFF7ED' : 'white',
-                                            color: filters.showNewOnly ? '#92400E' : 'var(--color-text-secondary)',
-                                            fontSize: '0.75rem', cursor: 'pointer', fontFamily: 'inherit',
-                                            fontWeight: filters.showNewOnly ? 600 : 400,
-                                        }}
+                                        className={`pill${filters.showNewOnly ? ' active' : ''}`}
+                                        style={{ fontSize: '0.75rem' }}
                                         aria-pressed={filters.showNewOnly}
                                     >
                                         🆕 New Only
                                     </button>
-                                    <button
-                                        onClick={handleRefresh}
-                                        disabled={refreshing}
-                                        style={{
-                                            padding: '0.4rem 1rem', border: '1.5px solid var(--color-border)',
-                                            borderRadius: '100px', background: 'white', color: 'var(--color-text-secondary)',
-                                            fontSize: '0.78rem', cursor: 'pointer', fontFamily: 'inherit',
-                                            display: 'flex', alignItems: 'center', gap: '0.4rem',
-                                            opacity: refreshing ? 0.6 : 1,
-                                        }}
-                                        aria-label="Refresh notices from all sources"
-                                    >
+                                    <button onClick={handleRefresh} disabled={refreshing} className="pill" style={{ fontSize: '0.75rem' }}>
                                         {refreshing ? '⟳ Refreshing...' : '🔄 Refresh Now'}
                                     </button>
                                 </div>
                             </div>
-
                             {error && (
-                                <div role="alert" style={{
-                                    background: '#FEF2F2', border: '1px solid #FCA5A5', borderRadius: '10px',
-                                    padding: '1rem 1.25rem', marginBottom: '1rem', color: '#991B1B', fontSize: '0.875rem'
-                                }}>
+                                <div role="alert" style={{ background: '#FEF2F2', border: '1px solid #FCA5A5', borderRadius: '10px', padding: '1rem', marginBottom: '1rem', color: '#991B1B', fontSize: '0.875rem' }}>
                                     ⚠️ {error}
                                 </div>
                             )}
-
-                            <NoticeList
-                                notices={notices}
-                                loading={loading}
-                                page={filters.page}
-                                totalPages={totalPages}
-                                onPageChange={(p) => handleFilterChange({ page: p })}
-                                isSaved={isSaved}
-                                toggleSave={toggleSave}
-                            />
+                            <NoticeList notices={notices} loading={loading} page={filters.page} totalPages={totalPages} onPageChange={(p) => handleFilterChange({ page: p })} isSaved={isSaved} toggleSave={toggleSave} />
                         </>
                     )}
 
-                    {activeTab === 'engineering' && (
-                        <EngineeringTab isSaved={isSaved} toggleSave={toggleSave} />
-                    )}
-
-                    {activeTab === 'saved' && (
-                        <SavedNotices notices={savedNotices} isSaved={isSaved} toggleSave={toggleSave} />
-                    )}
+                    {activeTab === 'engineering' && <EngineeringTab isSaved={isSaved} toggleSave={toggleSave} />}
+                    {activeTab === 'saved' && <SavedNotices notices={savedNotices} isSaved={isSaved} toggleSave={toggleSave} />}
                 </div>
             </main>
 
             <Footer />
 
-            {toast && (
-                <div className="toast" role="status" aria-live="polite">
-                    {toast}
-                </div>
-            )}
+            {toast && <div className="toast" role="status" aria-live="polite">{toast}</div>}
         </>
     );
 }

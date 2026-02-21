@@ -1,10 +1,10 @@
 const TABS = [
-    { key: 'jobs', label: '🏛️ All Jobs' },
+    { key: 'jobs', label: '🏗️ All Jobs' },
     { key: 'engineering', label: '⚙️ Engineering' },
     { key: 'saved', label: '⭐ Saved' },
 ];
 
-export default function Header({ activeTab, onTabChange, newCount, savedCount }) {
+export default function Header({ activeTab, onTabChange, newCount, savedCount, selectedState, onChangeState }) {
     return (
         <header className="site-header">
             <div className="container header-inner">
@@ -38,13 +38,29 @@ export default function Header({ activeTab, onTabChange, newCount, savedCount })
                 </nav>
 
                 <div className="header-meta">
-                    <span className="live-dot" aria-hidden="true" />
-                    <span>Updated every 6 hours</span>
+                    {selectedState ? (
+                        <>
+                            <button
+                                onClick={onChangeState}
+                                style={{
+                                    background: 'rgba(255,255,255,0.15)', border: '1.5px solid rgba(255,255,255,0.25)',
+                                    color: 'white', borderRadius: '100px', padding: '0.25rem 0.65rem',
+                                    fontSize: '0.72rem', cursor: 'pointer', fontFamily: 'inherit',
+                                    display: 'flex', alignItems: 'center', gap: '0.35rem', fontWeight: 600
+                                }}
+                                title="Change your state"
+                            >
+                                📍 {selectedState} · × Change
+                            </button>
+                        </>
+                    ) : (
+                        <>
+                            <span className="live-dot" aria-hidden="true" />
+                            <span>Updated every 6 hours</span>
+                        </>
+                    )}
                     {newCount > 0 && (
-                        <span style={{
-                            background: '#FF9933', color: 'white', fontSize: '0.65rem',
-                            fontWeight: 700, padding: '0.15rem 0.5rem', borderRadius: '100px',
-                        }}>
+                        <span style={{ background: '#FF9933', color: 'white', fontSize: '0.65rem', fontWeight: 700, padding: '0.15rem 0.5rem', borderRadius: '100px' }}>
                             🆕 {newCount} new
                         </span>
                     )}
