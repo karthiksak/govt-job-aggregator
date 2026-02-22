@@ -1,6 +1,6 @@
 #FileLock
-#Sat Feb 21 18:52:31 IST 2026
-server=192.168.1.5\:65457
-hostName=DESKTOP-9F8AMHF
+#Sun Feb 22 09:08:48 IST 2026
+server=localhost\:50615
+hostName=localhost
 method=file
-id=19c805db81676e1dd985f4ec4d8dd1ee1d5b288de0e
+id=19c836da9789079e87f20963c6709474ee0edb2af60
