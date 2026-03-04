@@ -33,9 +33,14 @@ public class SscScraper implements JobNoticeSource {
     private static final String SSC_NR_URL = "https://sscnr.nic.in/newpages/latest.php";
     private static final String SSC_NR_BASE = "https://sscnr.nic.in";
 
-    // SSC Patna (ER2)
-    private static final String SSC_ER2_URL = "https://sscner.nic.in/newpages/latest.php";
-    private static final String SSC_ER2_BASE = "https://sscner.nic.in";
+    // SSC MPR (Madhya Pradesh Region) — static HTML, replaces sscner.nic.in which
+    // is unreachable
+    private static final String SSC_MPR_URL = "https://sscmpr.org/latest-notification/";
+    private static final String SSC_MPR_BASE = "https://sscmpr.org";
+
+    // SSC ER (Eastern Region) — backup
+    private static final String SSC_ER_URL = "https://sscer.org/";
+    private static final String SSC_ER_BASE = "https://sscer.org";
 
     private final ScraperUtils utils;
 
@@ -63,8 +68,11 @@ public class SscScraper implements JobNoticeSource {
     public List<RawNotice> fetchRaw() {
         List<RawNotice> notices = new ArrayList<>();
         notices.addAll(scrapeSource(SSC_NR_URL, SSC_NR_BASE, "SSC NR (Northern Region)"));
+        // sscner.nic.in is unreachable (DNS failure) — use MPR instead
         if (notices.size() < 5)
-            notices.addAll(scrapeSource(SSC_ER2_URL, SSC_ER2_BASE, "SSC NER (North Eastern Region)"));
+            notices.addAll(scrapeSource(SSC_MPR_URL, SSC_MPR_BASE, "SSC MPR (Madhya Pradesh Region)"));
+        if (notices.size() < 5)
+            notices.addAll(scrapeSource(SSC_ER_URL, SSC_ER_BASE, "SSC ER (Eastern Region)"));
         log.info("[SSC] Total fetched {} notices", notices.size());
         return notices;
     }

@@ -1,0 +1,3 @@
+in\govtjobs\service\ScraperServiceTest.class
+in\govtjobs\controller\JobNoticeControllerTest.class
+in\govtjobs\scraper\impl\StateGovtScraperTest.class

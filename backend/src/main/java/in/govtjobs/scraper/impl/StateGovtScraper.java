@@ -29,17 +29,65 @@ import java.util.List;
 @RequiredArgsConstructor
 public class StateGovtScraper implements JobNoticeSource {
 
-    private static final String TNPSC_URL = "https://www.tnpsc.gov.in/notifications.html";
-    private static final String TNPSC_BASE = "https://www.tnpsc.gov.in";
+    private record StateConfig(
+            String state,
+            String sourceName,
+            String base,
+            String url,
+            String selectors) {
+    }
 
-    private static final String KPSC_URL = "https://kpsc.kar.nic.in/recruitment.aspx";
-    private static final String KPSC_BASE = "https://kpsc.kar.nic.in";
+    private static final List<StateConfig> SOURCES = List.of(
+            // --- STATES ---
+            new StateConfig("Andhra Pradesh", "APPSC", "https://psc.ap.gov.in", "https://psc.ap.gov.in/Default.aspx",
+                    "a"),
+            new StateConfig("Arunachal Pradesh", "APPSC", "https://appsc.gov.in", "https://appsc.gov.in", "a"),
+            new StateConfig("Assam", "APSC", "https://apsc.nic.in", "https://apsc.nic.in", "a"),
+            new StateConfig("Bihar", "BPSC", "https://www.bpsc.bih.nic.in", "https://www.bpsc.bih.nic.in", "a"),
+            new StateConfig("Bihar", "BSSC", "https://bssc.bihar.gov.in", "https://bssc.bihar.gov.in/NoticeBoard.htm",
+                    "a"),
+            new StateConfig("Chhattisgarh", "CGPSC", "https://psc.cg.gov.in", "https://psc.cg.gov.in", "a"),
+            new StateConfig("Goa", "GPSC", "https://gpsc.goa.gov.in", "https://gpsc.goa.gov.in/advertisement.php", "a"),
+            new StateConfig("Gujarat", "GPSC", "https://gpsc.gujarat.gov.in",
+                    "https://gpsc.gujarat.gov.in/Advertisements", "a"),
+            new StateConfig("Haryana", "HPSC", "https://hpsc.gov.in", "https://hpsc.gov.in", "a"),
+            new StateConfig("Haryana", "HSSC", "https://hssc.gov.in", "https://hssc.gov.in", "a"),
+            new StateConfig("Himachal Pradesh", "HPPSC", "http://www.hppsc.hp.gov.in",
+                    "http://www.hppsc.hp.gov.in/hppsc/", "a"),
+            new StateConfig("Jharkhand", "JPSC", "https://jpsc.gov.in", "https://jpsc.gov.in", "a"),
+            new StateConfig("Karnataka", "KPSC", "https://kpsc.kar.nic.in", "https://kpsc.kar.nic.in", "a"),
+            new StateConfig("Kerala", "Kerala PSC", "https://www.keralapsc.gov.in",
+                    "https://www.keralapsc.gov.in/notifications", "a"),
+            new StateConfig("Madhya Pradesh", "MPPSC", "https://mppsc.mp.gov.in", "https://mppsc.mp.gov.in", "a"),
+            new StateConfig("Maharashtra", "MPSC", "https://mpsc.gov.in", "https://mpsc.gov.in", "a"),
+            new StateConfig("Manipur", "Manipur PSC", "https://mppsc.gov.in", "https://mppsc.gov.in", "a"),
+            new StateConfig("Meghalaya", "Meghalaya PSC", "https://mpsc.nic.in", "https://mpsc.nic.in", "a"),
+            new StateConfig("Mizoram", "Mizoram PSC", "https://mpsc.mizoram.gov.in", "https://mpsc.mizoram.gov.in",
+                    "a"),
+            new StateConfig("Nagaland", "NPSC", "https://npsc.nagaland.gov.in", "https://npsc.nagaland.gov.in", "a"),
+            new StateConfig("Odisha", "OPSC", "https://opsc.gov.in", "https://opsc.gov.in", "a"),
+            new StateConfig("Punjab", "PPSC", "https://ppsc.gov.in", "https://ppsc.gov.in", "a"),
+            new StateConfig("Rajasthan", "RPSC", "https://rpsc.rajasthan.gov.in", "https://rpsc.rajasthan.gov.in", "a"),
+            new StateConfig("Sikkim", "SPSC", "https://spsc.sikkim.gov.in", "https://spsc.sikkim.gov.in", "a"),
+            new StateConfig("Tamil Nadu", "TNPSC", "https://www.tnpsc.gov.in", "https://www.tnpsc.gov.in/home.aspx",
+                    "a"),
+            new StateConfig("Telangana", "TSPSC", "https://websitenew.tspsc.gov.in", "https://websitenew.tspsc.gov.in",
+                    "a"),
+            new StateConfig("Tripura", "TPSC", "https://tpsc.tripura.gov.in", "https://tpsc.tripura.gov.in", "a"),
+            new StateConfig("Uttar Pradesh", "UPPSC", "https://uppsc.up.nic.in", "https://uppsc.up.nic.in", "a"),
+            new StateConfig("Uttar Pradesh", "UPSSSC", "https://upsssc.gov.in", "https://upsssc.gov.in/Default.aspx",
+                    "a"),
+            new StateConfig("Uttarakhand", "UKPSC", "https://psc.uk.gov.in", "https://psc.uk.gov.in", "a"),
+            new StateConfig("West Bengal", "WBPSC", "https://psc.wb.gov.in", "https://psc.wb.gov.in", "a"),
 
-    private static final String MPPSC_URL = "https://mppsc.mp.gov.in/Advertisements";
-    private static final String MPPSC_BASE = "https://mppsc.mp.gov.in";
-
-    private static final String OPSC_URL = "https://opsc.gov.in/Advt.aspx";
-    private static final String OPSC_BASE = "https://opsc.gov.in";
+            // --- UNION TERRITORIES ---
+            new StateConfig("Delhi", "DSSSB", "https://dsssb.delhi.gov.in", "https://dsssb.delhi.gov.in", "a"),
+            new StateConfig("Jammu & Kashmir", "JKSSB", "https://jkssb.nic.in", "https://jkssb.nic.in", "a"),
+            new StateConfig("Puducherry", "Puducherry Admin", "https://recruitment.py.gov.in",
+                    "https://recruitment.py.gov.in", "a"),
+            new StateConfig("Chandigarh", "Chandigarh Admin", "https://chandigarh.gov.in", "https://chandigarh.gov.in",
+                    "a"),
+            new StateConfig("Andaman & Nicobar", "A&N Admin", "https://andaman.gov.in", "https://andaman.gov.in", "a"));
 
     private final ScraperUtils utils;
 
@@ -50,7 +98,7 @@ public class StateGovtScraper implements JobNoticeSource {
 
     @Override
     public String getSourceUrl() {
-        return TNPSC_BASE;
+        return "Various State Portals";
     }
 
     @Override
@@ -66,22 +114,27 @@ public class StateGovtScraper implements JobNoticeSource {
     @Override
     public List<RawNotice> fetchRaw() {
         List<RawNotice> notices = new ArrayList<>();
-        notices.addAll(scrapeTnpsc());
-        notices.addAll(scrapeKpsc());
-        notices.addAll(scrapeMppsc());
-        notices.addAll(scrapeOpsc());
-        log.info("[StateGovt] Total fetched {} notices", notices.size());
+
+        for (StateConfig config : SOURCES) {
+            notices.addAll(scrapeGeneric(config));
+        }
+
+        log.info("[StateGovt] Total fetched {} notices across all States/UTs", notices.size());
         return notices;
     }
 
-    // -------------------------------------------------------------------------
-    // TNPSC
-    // -------------------------------------------------------------------------
-    private List<RawNotice> scrapeTnpsc() {
+    private List<RawNotice> scrapeGeneric(StateConfig config) {
         List<RawNotice> list = new ArrayList<>();
         try {
-            Document doc = utils.fetchPageLax(TNPSC_URL, 15000);
-            Elements links = doc.select("table tr td a, ul li a, .notification a, a[href*='pdf'], a[href]");
+            // Use Lax connection to bypass SSL issues and handle timeouts cleanly
+            Document doc = utils.fetchPageLax(config.url(), 10000);
+
+            // Apply specific selectors or fallback to robust generic selection
+            String selectors = (config.selectors() != null && !config.selectors().isBlank())
+                    ? config.selectors()
+                    : "table tr td a, ul li a, a[href*='pdf'], a[href*='advt'], a[href*='recruit']";
+
+            Elements links = doc.select(selectors);
 
             for (Element link : links) {
                 String title = buildTitle(link);
@@ -91,105 +144,20 @@ public class StateGovtScraper implements JobNoticeSource {
                 String href = link.attr("href");
                 if (href.toLowerCase().contains("javascript:"))
                     continue;
-                href = utils.absoluteUrl(TNPSC_BASE, href);
+                href = utils.absoluteUrl(config.base(), href);
 
-                list.add(buildNotice(title, href, "TNPSC (Tamil Nadu PSC)", TNPSC_BASE, "Tamil Nadu", link));
-                if (list.size() >= 15)
-                    break;
-            }
-            log.info("[StateGovt/TNPSC] Fetched {} notices", list.size());
-        } catch (Exception e) {
-            log.warn("[StateGovt/TNPSC] Failed: {}", e.getMessage());
-        }
-        return list;
-    }
+                list.add(buildNotice(title, href, config.sourceName(), config.base(), config.state(), link));
 
-    // -------------------------------------------------------------------------
-    // KPSC (Karnataka)
-    // -------------------------------------------------------------------------
-    private List<RawNotice> scrapeKpsc() {
-        List<RawNotice> list = new ArrayList<>();
-        try {
-            Document doc = utils.fetchPageLax(KPSC_URL, 15000);
-            Elements links = doc.select("table tr td a, ul li a, a[href*='pdf'], a[href*='recruit'], a[href]");
-
-            for (Element link : links) {
-                String title = buildTitle(link);
-                if (title.length() < 10 || utils.isJunkTitle(title) || !isJobRelated(title))
-                    continue;
-
-                String href = link.attr("href");
-                if (href.toLowerCase().contains("javascript:"))
-                    continue;
-                href = utils.absoluteUrl(KPSC_BASE, href);
-
-                list.add(buildNotice(title, href, "KPSC (Karnataka PSC)", KPSC_BASE, "Karnataka", link));
+                // Limit to max 10 latest notices per board to avoid flooding the DB with
+                // ancient notices
                 if (list.size() >= 10)
                     break;
             }
-            log.info("[StateGovt/KPSC] Fetched {} notices", list.size());
+            log.info("[StateGovt/{}] Fetched {} notices", config.sourceName(), list.size());
         } catch (Exception e) {
-            log.warn("[StateGovt/KPSC] Failed: {}", e.getMessage());
-        }
-        return list;
-    }
-
-    // -------------------------------------------------------------------------
-    // MPPSC (Madhya Pradesh)
-    // -------------------------------------------------------------------------
-    private List<RawNotice> scrapeMppsc() {
-        List<RawNotice> list = new ArrayList<>();
-        try {
-            Document doc = utils.fetchPageLax(MPPSC_URL, 15000);
-            Elements links = doc.select("table tr td a, ul li a, a[href*='pdf'], .advt a, a[href]");
-
-            for (Element link : links) {
-                String title = buildTitle(link);
-                if (title.length() < 10 || utils.isJunkTitle(title) || !isJobRelated(title))
-                    continue;
-
-                String href = link.attr("href");
-                if (href.toLowerCase().contains("javascript:"))
-                    continue;
-                href = utils.absoluteUrl(MPPSC_BASE, href);
-
-                list.add(buildNotice(title, href, "MPPSC (Madhya Pradesh PSC)", MPPSC_BASE, "Madhya Pradesh", link));
-                if (list.size() >= 10)
-                    break;
-            }
-            log.info("[StateGovt/MPPSC] Fetched {} notices", list.size());
-        } catch (Exception e) {
-            log.warn("[StateGovt/MPPSC] Failed: {}", e.getMessage());
-        }
-        return list;
-    }
-
-    // -------------------------------------------------------------------------
-    // OPSC (Odisha)
-    // -------------------------------------------------------------------------
-    private List<RawNotice> scrapeOpsc() {
-        List<RawNotice> list = new ArrayList<>();
-        try {
-            Document doc = utils.fetchPageLax(OPSC_URL, 15000);
-            Elements links = doc.select("table tr td a, ul li a, a[href*='pdf'], a[href*='advt'], a[href]");
-
-            for (Element link : links) {
-                String title = buildTitle(link);
-                if (title.length() < 10 || utils.isJunkTitle(title) || !isJobRelated(title))
-                    continue;
-
-                String href = link.attr("href");
-                if (href.toLowerCase().contains("javascript:"))
-                    continue;
-                href = utils.absoluteUrl(OPSC_BASE, href);
-
-                list.add(buildNotice(title, href, "OPSC (Odisha PSC)", OPSC_BASE, "Odisha", link));
-                if (list.size() >= 10)
-                    break;
-            }
-            log.info("[StateGovt/OPSC] Fetched {} notices", list.size());
-        } catch (Exception e) {
-            log.warn("[StateGovt/OPSC] Failed: {}", e.getMessage());
+            // Some state sites will naturally timeout or throw 403s (like BPSC/Kerala PSC).
+            // We catch and softly warn instead of crashing the batch.
+            log.warn("[StateGovt/{}] Failed: {}", config.sourceName(), e.getMessage());
         }
         return list;
     }

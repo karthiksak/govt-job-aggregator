@@ -17,9 +17,12 @@ import java.util.List;
  * Scrapes government medical / health sector job notifications.
  *
  * Sources:
- * 1. AIIMS New Delhi - premier central govt medical institute
- * 2. ESIC - Employees' State Insurance Corporation
- * 3. NHM (National Health Mission) - health recruitment portal
+ * 1. AIIMS Jodhpur — premier central govt medical institute (AIIMS Delhi
+ * website redesigned, URLs broken)
+ * 2. ESIC — Employees' State Insurance Corporation (verified reachable via
+ * HTTPS)
+ * 3. NHM (National Health Mission) — main page "What's New" section contains
+ * recruitment PDFs
  * 4. MRB (Medical Recruitment Board, Tamil Nadu)
  */
 @Slf4j
@@ -27,15 +30,19 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MedicalJobsScraper implements JobNoticeSource {
 
-    private static final String AIIMS_BASE = "https://www.aiims.edu";
-    private static final String AIIMS_URL = "https://www.aiims.edu/en/notices.html";
+    // AIIMS Delhi's website was redesigned — notices.html returns 404.
+    // Using AIIMS Jodhpur (aiimsjodhpur.edu.in) which has a stable recruitment
+    // page.
+    private static final String AIIMS_BASE = "https://www.aiimsjodhpur.edu.in";
+    private static final String AIIMS_URL = "https://www.aiimsjodhpur.edu.in/recruitment.html";
 
+    // ESIC — verified accessible; SNI issue is intermittent and non-fatal
     private static final String ESIC_BASE = "https://www.esic.gov.in";
     private static final String ESIC_URL = "https://www.esic.gov.in/recruitments";
 
+    // NHM — main site "What's New" section contains recruitment PDFs
     private static final String NHM_BASE = "https://nhm.gov.in";
-    // Direct recruitment listing page of NHM
-    private static final String NHM_RECRUITMENT_URL = "https://nhm.gov.in/index1.php?lang=1&level=1&sublinkid=971&lid=235";
+    private static final String NHM_URL = "https://nhm.gov.in/";
 
     private static final String MRB_BASE = "https://www.mrb.tn.gov.in";
     private static final String MRB_URL = "https://www.mrb.tn.gov.in";
@@ -74,12 +81,12 @@ public class MedicalJobsScraper implements JobNoticeSource {
     }
 
     // -------------------------------------------------------------------------
-    // AIIMS
+    // AIIMS — now using AIIMS Jodhpur (Delhi site was redesigned, old URLs 404)
     // -------------------------------------------------------------------------
     private List<RawNotice> scrapeAiims() {
         List<RawNotice> list = new ArrayList<>();
         try {
-            Document doc = utils.fetchPageLax(AIIMS_URL);
+            Document doc = utils.fetchPageLax(AIIMS_URL, 15000);
             Elements links = doc.select("a[href*='recruit'], a[href*='notice'], a[href*='vacancy'], a[href*='pdf']");
             if (links.isEmpty())
                 links = doc.select("table tr a, ul li a, div a");
@@ -91,7 +98,7 @@ public class MedicalJobsScraper implements JobNoticeSource {
                 if (!isMedicalOrRelevant(title))
                     continue;
                 String href = utils.absoluteUrl(AIIMS_BASE, link.attr("href"));
-                list.add(buildNotice(title, href, "AIIMS New Delhi", AIIMS_BASE, "Central", link));
+                list.add(buildNotice(title, href, "AIIMS Jodhpur", AIIMS_BASE, "Central", link));
                 if (list.size() >= 20)
                     break;
             }
@@ -103,16 +110,15 @@ public class MedicalJobsScraper implements JobNoticeSource {
     }
 
     // -------------------------------------------------------------------------
-    // ESIC — fix SNI warning by disabling TLS extensions for this host
+    // ESIC — the server is accessible; remove the ineffective SNI system property
+    // hack (System.setProperty doesn't affect Jsoup's SSL stack). Just fetch
+    // directly.
     // -------------------------------------------------------------------------
     private List<RawNotice> scrapeEsic() {
         List<RawNotice> list = new ArrayList<>();
-        // The ESIC server throws "unrecognized_name" TLS SNI warning.
-        // Setting jsse.enableSNIExtension=false disables SNI globally for this thread.
-        String prev = System.getProperty("jsse.enableSNIExtension");
         try {
-            System.setProperty("jsse.enableSNIExtension", "false");
-            Document doc = utils.fetchPageLax(ESIC_URL);
+            Document doc = utils.fetchPageLax(ESIC_URL, 15000);
+            // ESIC recruitment page lists PDF links for each recruitment notice
             Elements links = doc.select("a[href*='recruit'], a[href*='pdf'], a[href*='vacancy'], table tr a, ul li a");
             for (Element link : links) {
                 String title = utils.buildTitle(link);
@@ -127,26 +133,25 @@ public class MedicalJobsScraper implements JobNoticeSource {
             log.info("[ESIC] Fetched {} notices", list.size());
         } catch (Exception e) {
             log.error("[ESIC] Failed to scrape: {}", e.getMessage());
-        } finally {
-            // Restore previous setting
-            if (prev == null)
-                System.clearProperty("jsse.enableSNIExtension");
-            else
-                System.setProperty("jsse.enableSNIExtension", prev);
         }
         return list;
     }
 
     // -------------------------------------------------------------------------
-    // NHM — only pick links that are genuine job/recruitment notices
+    // NHM — scrape main page "What's New" section which has recruitment PDF links.
+    // Old URL was `index1.php?...sublinkid=971` (IDSP page — wrong page, not
+    // recruitment).
     // -------------------------------------------------------------------------
     private List<RawNotice> scrapeNhm() {
         List<RawNotice> list = new ArrayList<>();
         try {
-            Document doc = utils.fetchPageLax(NHM_RECRUITMENT_URL);
-            // Prefer PDF or recruitment links in tables/lists
-            Elements links = doc.select(
-                    "a[href*='.pdf'], a[href*='recruit'], a[href*='vacancy'], a[href*='advt'], table td a, ul li a");
+            Document doc = utils.fetchPageLax(NHM_URL, 15000);
+            // NHM home page "What's New" section has PDF links — pick ones with recruitment
+            // keywords
+            Elements links = doc.select("a[href*='.pdf'], a[href*='recruit'], a[href*='vacancy'], a[href*='advt']");
+            if (links.isEmpty())
+                links = doc.select("table td a, ul li a");
+
             for (Element link : links) {
                 String title = utils.buildTitle(link);
                 if (title.length() < 10 || utils.isJunkTitle(title))

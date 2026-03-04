@@ -31,13 +31,17 @@ public class RrbScraper implements JobNoticeSource {
     private static final String RRC_NR_URL = "https://www.rrcnr.org/recr.aspx";
     private static final String RRC_NR_BASE = "https://www.rrcnr.org";
 
-    // RRB Bhopal — static HTML recruitment notifications
-    private static final String RRB_BPL_URL = "https://rrbbhopal.gov.in/";
-    private static final String RRB_BPL_BASE = "https://rrbbhopal.gov.in";
+    // RRB Ajmer — replaces RRB Bhopal (rrbbhopal.gov.in — connection reset)
+    private static final String RRB_AJM_URL = "https://rrbajmer.gov.in/";
+    private static final String RRB_AJM_BASE = "https://rrbajmer.gov.in";
 
     // RRB Mumbai
     private static final String RRB_MUM_URL = "https://www.rrbmumbai.gov.in/";
     private static final String RRB_MUM_BASE = "https://www.rrbmumbai.gov.in";
+
+    // RRB Allahabad — additional backup
+    private static final String RRB_ALD_URL = "https://rrbald.gov.in/";
+    private static final String RRB_ALD_BASE = "https://rrbald.gov.in";
 
     private static final String BASE_URL = "https://indianrailways.gov.in";
 
@@ -70,13 +74,17 @@ public class RrbScraper implements JobNoticeSource {
         // Try RRC NR first
         notices.addAll(scrapeSource(RRC_NR_URL, RRC_NR_BASE, "RRC NR (Northern Railway)"));
 
-        // Supplement from RRB Bhopal if needed
+        // RRB Ajmer (replaces RRB Bhopal which had connection reset)
         if (notices.size() < 8)
-            notices.addAll(scrapeSource(RRB_BPL_URL, RRB_BPL_BASE, "RRB Bhopal"));
+            notices.addAll(scrapeSource(RRB_AJM_URL, RRB_AJM_BASE, "RRB Ajmer"));
 
-        // Supplement from RRB Mumbai if still sparse
+        // RRB Mumbai
         if (notices.size() < 8)
             notices.addAll(scrapeSource(RRB_MUM_URL, RRB_MUM_BASE, "RRB Mumbai"));
+
+        // RRB Allahabad as final backup
+        if (notices.size() < 8)
+            notices.addAll(scrapeSource(RRB_ALD_URL, RRB_ALD_BASE, "RRB Allahabad"));
 
         log.info("[RRB] Total fetched {} notices", notices.size());
         return notices;

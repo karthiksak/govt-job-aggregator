@@ -16,6 +16,7 @@ in\govtjobs\scraper\impl\TnpscScraper.class
 in\govtjobs\config\CorsConfig.class
 in\govtjobs\dto\ApiResponse.class
 in\govtjobs\repository\JobNoticeRepository.class
+in\govtjobs\scraper\impl\StateGovtScraper$StateConfig.class
 in\govtjobs\scraper\impl\SscScraper.class
 in\govtjobs\util\ScraperUtils.class
 in\govtjobs\service\ScraperService$ScraperResult.class

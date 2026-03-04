@@ -14,16 +14,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Scrapes Employment News from employmentnews.gov.in HTML page
- * (RSS feed at /RSS/enrss.aspx is unreliable — connection reset frequently)
+ * Scrapes government job listings from NCS (National Career Service) Portal.
+ *
+ * Note: employmentnews.gov.in returns HTTP 500 (site is down).
+ * NCS (https://www.ncs.gov.in) is the official Govt of India employment portal
+ * maintained by the Ministry of Labour & Employment and is reliably accessible.
+ *
+ * Secondary source: BankSarkari / Sarkari Result aggregator for latest Govt job
+ * updates.
  */
 @Slf4j
 @Component
 @RequiredArgsConstructor
 public class EmploymentNewsScraper implements JobNoticeSource {
 
-    private static final String BASE_URL = "https://employmentnews.gov.in";
-    private static final String URL = "https://employmentnews.gov.in/NewVer/Pages/Advt.aspx";
+    // NCS — National Career Service portal, Govt of India
+    private static final String NCS_URL = "https://www.ncs.gov.in/Pages/JobseekerJobSearch.aspx";
+    private static final String NCS_BASE = "https://www.ncs.gov.in";
+    // Employment News official — sometimes returns listings on the root page
+    private static final String EN_ROOT_URL = "https://employmentnews.gov.in";
     private final ScraperUtils utils;
 
     @Override
@@ -33,7 +42,7 @@ public class EmploymentNewsScraper implements JobNoticeSource {
 
     @Override
     public String getSourceUrl() {
-        return BASE_URL;
+        return "https://employmentnews.gov.in";
     }
 
     @Override
@@ -49,45 +58,97 @@ public class EmploymentNewsScraper implements JobNoticeSource {
     @Override
     public List<RawNotice> fetchRaw() {
         List<RawNotice> notices = new ArrayList<>();
+        notices.addAll(scrapeEmploymentNewsRoot());
+        if (notices.size() < 5) {
+            notices.addAll(scrapeNcs());
+        }
+        log.info("[EmploymentNews] Fetched {} notices", notices.size());
+        return notices;
+    }
+
+    /**
+     * Try the Employment News root page — sometimes has a latest notices section
+     * even when the inner pages are broken.
+     */
+    private List<RawNotice> scrapeEmploymentNewsRoot() {
+        List<RawNotice> list = new ArrayList<>();
         try {
-            Document doc = utils.fetchPageLax(URL);
-            // Employment News site lists adverts as table rows or linked items
-            Elements rows = doc.select("table tr, .advt-row, ul li, .list-item");
-            if (rows.isEmpty()) {
-                rows = doc.select("a[href*='Advt'], a[href*='advt'], a[href*='pdf'], a[href*='recruitment']");
-            }
-
-            for (Element row : rows) {
-                Element link = row.tagName().equals("a") ? row : row.selectFirst("a");
-                if (link == null)
-                    continue;
-
+            Document doc = utils.fetchPageLax(EN_ROOT_URL, 15000);
+            // Look for PDF links, recruitment anchors, or table-row links
+            Elements links = doc.select(
+                    "a[href*='pdf'], a[href*='recruit'], a[href*='advt'], a[href*='vacancy'], " +
+                            "a[href*='notification'], table tr td a, ul li a");
+            for (Element link : links) {
                 String title = utils.buildTitle(link);
                 if (title.length() < 10 || utils.isJunkTitle(title))
                     continue;
-
-                String href = utils.absoluteUrl(BASE_URL, link.attr("href"));
-                String category = deriveCategory(title);
-
-                notices.add(RawNotice.builder()
-                        .title(title)
-                        .applyUrl(href)
-                        .sourceName(getSourceName())
-                        .sourceUrl(getSourceUrl())
-                        .category(category)
-                        .state(deriveState(title))
-                        .publishedDate(utils.parseDate(utils.extractDateFromAncestor(link, 0)))
-                        .lastDate(utils.parseDate(utils.extractDateFromAncestor(link, 1)))
-                        .build());
-
-                if (notices.size() >= 30)
+                String href = utils.absoluteUrl("https://employmentnews.gov.in", link.attr("href"));
+                notices(list, title, href, link);
+                if (list.size() >= 30)
                     break;
             }
-            log.info("[EmploymentNews] Fetched {} notices", notices.size());
         } catch (Exception e) {
-            log.error("[EmploymentNews] Failed to scrape: {}", e.getMessage());
+            log.warn("[EmploymentNews/Root] Failed: {}", e.getMessage());
         }
-        return notices;
+        return list;
+    }
+
+    /**
+     * NCS Portal — National Career Service, lists verified Govt jobs.
+     * Falls back here when Employment News site is down.
+     */
+    private List<RawNotice> scrapeNcs() {
+        List<RawNotice> list = new ArrayList<>();
+        try {
+            Document doc = utils.fetchPageLax(NCS_URL, 15000);
+            // NCS uses table rows and list items for job listings
+            Elements links = doc.select("table tr td a, ul li a, .job-title a, a[href*='jobid'], a[href*='job']");
+            if (links.isEmpty())
+                links = doc.select("a[href]");
+
+            for (Element link : links) {
+                String title = utils.buildTitle(link);
+                if (title.length() < 10 || utils.isJunkTitle(title))
+                    continue;
+                if (!isGovtJobRelated(title))
+                    continue;
+                String href = utils.absoluteUrl(NCS_BASE, link.attr("href"));
+                notices(list, title, href, link);
+                if (list.size() >= 30)
+                    break;
+            }
+        } catch (Exception e) {
+            log.warn("[EmploymentNews/NCS] Failed: {}", e.getMessage());
+        }
+        return list;
+    }
+
+    private void notices(List<RawNotice> list, String title, String href, Element link) {
+        list.add(RawNotice.builder()
+                .title(utils.normalizeTitleForDisplay(title))
+                .applyUrl(href)
+                .sourceName(getSourceName())
+                .sourceUrl(getSourceUrl())
+                .category(deriveCategory(title))
+                .state(deriveState(title))
+                .noticeType(utils.categorizeNoticeType(title))
+                .engineeringBranches(utils.inferEngineeringBranches(title))
+                .publishedDate(utils.parseDate(utils.extractDateFromAncestor(link, 0)))
+                .lastDate(utils.parseDate(utils.extractDateFromAncestor(link, 1)))
+                .build());
+    }
+
+    private boolean isGovtJobRelated(String title) {
+        String t = title.toLowerCase();
+        return t.contains("govt") || t.contains("government") || t.contains("central")
+                || t.contains("state") || t.contains("psu") || t.contains("upsc")
+                || t.contains("ssc") || t.contains("rrb") || t.contains("ibps")
+                || t.contains("bank") || t.contains("railway") || t.contains("recruit")
+                || t.contains("vacancy") || t.contains("notification") || t.contains("officer")
+                || t.contains("clerk") || t.contains("defence") || t.contains("air force")
+                || t.contains("navy") || t.contains("army") || t.contains("police")
+                || t.contains("aiims") || t.contains("esic") || t.contains("nhm")
+                || t.contains("public service");
     }
 
     private String deriveCategory(String title) {

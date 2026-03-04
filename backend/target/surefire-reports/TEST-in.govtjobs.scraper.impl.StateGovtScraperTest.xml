@@ -1,0 +1,727 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="in.govtjobs.scraper.impl.StateGovtScraperTest" time="46.234" tests="1" errors="0" skipped="0" failures="0">
+  <properties>
+    <property name="java.specification.version" value="17"/>
+    <property name="sun.cpu.isalist" value="amd64"/>
+    <property name="sun.jnu.encoding" value="Cp1252"/>
+    <property name="java.class.path" value="C:\Users\Karthik\.gemini\antigravity\scratch\govt-job-aggregator\backend\target\test-classes;C:\Users\Karthik\.gemini\antigravity\scratch\govt-job-aggregator\backend\target\classes;C:\Users\Karthik\.m2\repository\org\springframework\boot\spring-boot-starter-web\3.2.3\spring-boot-starter-web-3.2.3.jar;C:\Users\Karthik\.m2\repository\org\springframework\boot\spring-boot-starter\3.2.3\spring-boot-starter-3.2.3.jar;C:\Users\Karthik\.m2\repository\org\springframework\boot\spring-boot\3.2.3\spring-boot-3.2.3.jar;C:\Users\Karthik\.m2\repository\org\springframework\boot\spring-boot-autoconfigure\3.2.3\spring-boot-autoconfigure-3.2.3.jar;C:\Users\Karthik\.m2\repository\org\springframework\boot\spring-boot-starter-logging\3.2.3\spring-boot-starter-logging-3.2.3.jar;C:\Users\Karthik\.m2\repository\ch\qos\logback\logback-classic\1.4.14\logback-classic-1.4.14.jar;C:\Users\Karthik\.m2\repository\ch\qos\logback\logback-core\1.4.14\logback-core-1.4.14.jar;C:\Users\Karthik\.m2\repository\org\apache\logging\log4j\log4j-to-slf4j\2.21.1\log4j-to-slf4j-2.21.1.jar;C:\Users\Karthik\.m2\repository\org\apache\logging\log4j\log4j-api\2.21.1\log4j-api-2.21.1.jar;C:\Users\Karthik\.m2\repository\org\slf4j\jul-to-slf4j\2.0.12\jul-to-slf4j-2.0.12.jar;C:\Users\Karthik\.m2\repository\jakarta\annotation\jakarta.annotation-api\2.1.1\jakarta.annotation-api-2.1.1.jar;C:\Users\Karthik\.m2\repository\org\yaml\snakeyaml\2.2\snakeyaml-2.2.jar;C:\Users\Karthik\.m2\repository\org\springframework\boot\spring-boot-starter-json\3.2.3\spring-boot-starter-json-3.2.3.jar;C:\Users\Karthik\.m2\repository\com\fasterxml\jackson\core\jackson-databind\2.15.4\jackson-databind-2.15.4.jar;C:\Users\Karthik\.m2\repository\com\fasterxml\jackson\core\jackson-annotations\2.15.4\jackson-annotations-2.15.4.jar;C:\Users\Karthik\.m2\repository\com\fasterxml\jackson\core\jackson-core\2.15.4\jackson-core-2.15.4.jar;C:\Users\Karthik\.m2\repository\com\fasterxml\jackson\datatype\jackson-datatype-jdk8\2.15.4\jackson-datatype-jdk8-2.15.4.jar;C:\Users\Karthik\.m2\repository\com\fasterxml\jackson\datatype\jackson-datatype-jsr310\2.15.4\jackson-datatype-jsr310-2.15.4.jar;C:\Users\Karthik\.m2\repository\com\fasterxml\jackson\module\jackson-module-parameter-names\2.15.4\jackson-module-parameter-names-2.15.4.jar;C:\Users\Karthik\.m2\repository\org\springframework\boot\spring-boot-starter-tomcat\3.2.3\spring-boot-starter-tomcat-3.2.3.jar;C:\Users\Karthik\.m2\repository\org\apache\tomcat\embed\tomcat-embed-core\10.1.19\tomcat-embed-core-10.1.19.jar;C:\Users\Karthik\.m2\repository\org\apache\tomcat\embed\tomcat-embed-websocket\10.1.19\tomcat-embed-websocket-10.1.19.jar;C:\Users\Karthik\.m2\repository\org\springframework\spring-web\6.1.4\spring-web-6.1.4.jar;C:\Users\Karthik\.m2\repository\org\springframework\spring-beans\6.1.4\spring-beans-6.1.4.jar;C:\Users\Karthik\.m2\repository\org\springframework\spring-webmvc\6.1.4\spring-webmvc-6.1.4.jar;C:\Users\Karthik\.m2\repository\org\springframework\spring-aop\6.1.4\spring-aop-6.1.4.jar;C:\Users\Karthik\.m2\repository\org\springframework\spring-context\6.1.4\spring-context-6.1.4.jar;C:\Users\Karthik\.m2\repository\org\springframework\spring-expression\6.1.4\spring-expression-6.1.4.jar;C:\Users\Karthik\.m2\repository\org\springframework\boot\spring-boot-starter-data-jpa\3.2.3\spring-boot-starter-data-jpa-3.2.3.jar;C:\Users\Karthik\.m2\repository\org\springframework\boot\spring-boot-starter-aop\3.2.3\spring-boot-starter-aop-3.2.3.jar;C:\Users\Karthik\.m2\repository\org\aspectj\aspectjweaver\1.9.21\aspectjweaver-1.9.21.jar;C:\Users\Karthik\.m2\repository\org\springframework\boot\spring-boot-starter-jdbc\3.2.3\spring-boot-starter-jdbc-3.2.3.jar;C:\Users\Karthik\.m2\repository\com\zaxxer\HikariCP\5.0.1\HikariCP-5.0.1.jar;C:\Users\Karthik\.m2\repository\org\springframework\spring-jdbc\6.1.4\spring-jdbc-6.1.4.jar;C:\Users\Karthik\.m2\repository\org\hibernate\orm\hibernate-core\6.4.4.Final\hibernate-core-6.4.4.Final.jar;C:\Users\Karthik\.m2\repository\jakarta\persistence\jakarta.persistence-api\3.1.0\jakarta.persistence-api-3.1.0.jar;C:\Users\Karthik\.m2\repository\jakarta\transaction\jakarta.transaction-api\2.0.1\jakarta.transaction-api-2.0.1.jar;C:\Users\Karthik\.m2\repository\org\jboss\logging\jboss-logging\3.5.3.Final\jboss-logging-3.5.3.Final.jar;C:\Users\Karthik\.m2\repository\org\hibernate\common\hibernate-commons-annotations\6.0.6.Final\hibernate-commons-annotations-6.0.6.Final.jar;C:\Users\Karthik\.m2\repository\io\smallrye\jandex\3.1.2\jandex-3.1.2.jar;C:\Users\Karthik\.m2\repository\com\fasterxml\classmate\1.6.0\classmate-1.6.0.jar;C:\Users\Karthik\.m2\repository\net\bytebuddy\byte-buddy\1.14.12\byte-buddy-1.14.12.jar;C:\Users\Karthik\.m2\repository\org\glassfish\jaxb\jaxb-runtime\4.0.4\jaxb-runtime-4.0.4.jar;C:\Users\Karthik\.m2\repository\org\glassfish\jaxb\jaxb-core\4.0.4\jaxb-core-4.0.4.jar;C:\Users\Karthik\.m2\repository\org\eclipse\angus\angus-activation\2.0.1\angus-activation-2.0.1.jar;C:\Users\Karthik\.m2\repository\org\glassfish\jaxb\txw2\4.0.4\txw2-4.0.4.jar;C:\Users\Karthik\.m2\repository\com\sun\istack\istack-commons-runtime\4.1.2\istack-commons-runtime-4.1.2.jar;C:\Users\Karthik\.m2\repository\jakarta\inject\jakarta.inject-api\2.0.1\jakarta.inject-api-2.0.1.jar;C:\Users\Karthik\.m2\repository\org\antlr\antlr4-runtime\4.13.0\antlr4-runtime-4.13.0.jar;C:\Users\Karthik\.m2\repository\org\springframework\data\spring-data-jpa\3.2.3\spring-data-jpa-3.2.3.jar;C:\Users\Karthik\.m2\repository\org\springframework\data\spring-data-commons\3.2.3\spring-data-commons-3.2.3.jar;C:\Users\Karthik\.m2\repository\org\springframework\spring-orm\6.1.4\spring-orm-6.1.4.jar;C:\Users\Karthik\.m2\repository\org\springframework\spring-tx\6.1.4\spring-tx-6.1.4.jar;C:\Users\Karthik\.m2\repository\org\springframework\spring-aspects\6.1.4\spring-aspects-6.1.4.jar;C:\Users\Karthik\.m2\repository\com\h2database\h2\2.2.224\h2-2.2.224.jar;C:\Users\Karthik\.m2\repository\org\springframework\boot\spring-boot-starter-validation\3.2.3\spring-boot-starter-validation-3.2.3.jar;C:\Users\Karthik\.m2\repository\org\apache\tomcat\embed\tomcat-embed-el\10.1.19\tomcat-embed-el-10.1.19.jar;C:\Users\Karthik\.m2\repository\org\hibernate\validator\hibernate-validator\8.0.1.Final\hibernate-validator-8.0.1.Final.jar;C:\Users\Karthik\.m2\repository\jakarta\validation\jakarta.validation-api\3.0.2\jakarta.validation-api-3.0.2.jar;C:\Users\Karthik\.m2\repository\org\projectlombok\lombok\1.18.30\lombok-1.18.30.jar;C:\Users\Karthik\.m2\repository\org\jsoup\jsoup\1.17.2\jsoup-1.17.2.jar;C:\Users\Karthik\.m2\repository\com\rometools\rome\2.1.0\rome-2.1.0.jar;C:\Users\Karthik\.m2\repository\com\rometools\rome-utils\2.1.0\rome-utils-2.1.0.jar;C:\Users\Karthik\.m2\repository\org\jdom\jdom2\2.0.6.1\jdom2-2.0.6.1.jar;C:\Users\Karthik\.m2\repository\org\slf4j\slf4j-api\2.0.12\slf4j-api-2.0.12.jar;C:\Users\Karthik\.m2\repository\com\bucket4j\bucket4j-core\8.10.1\bucket4j-core-8.10.1.jar;C:\Users\Karthik\.m2\repository\org\springframework\boot\spring-boot-starter-cache\3.2.3\spring-boot-starter-cache-3.2.3.jar;C:\Users\Karthik\.m2\repository\org\springframework\spring-context-support\6.1.4\spring-context-support-6.1.4.jar;C:\Users\Karthik\.m2\repository\com\github\ben-manes\caffeine\caffeine\3.1.8\caffeine-3.1.8.jar;C:\Users\Karthik\.m2\repository\org\checkerframework\checker-qual\3.37.0\checker-qual-3.37.0.jar;C:\Users\Karthik\.m2\repository\com\google\errorprone\error_prone_annotations\2.21.1\error_prone_annotations-2.21.1.jar;C:\Users\Karthik\.m2\repository\org\springframework\boot\spring-boot-starter-actuator\3.2.3\spring-boot-starter-actuator-3.2.3.jar;C:\Users\Karthik\.m2\repository\org\springframework\boot\spring-boot-actuator-autoconfigure\3.2.3\spring-boot-actuator-autoconfigure-3.2.3.jar;C:\Users\Karthik\.m2\repository\org\springframework\boot\spring-boot-actuator\3.2.3\spring-boot-actuator-3.2.3.jar;C:\Users\Karthik\.m2\repository\io\micrometer\micrometer-observation\1.12.3\micrometer-observation-1.12.3.jar;C:\Users\Karthik\.m2\repository\io\micrometer\micrometer-commons\1.12.3\micrometer-commons-1.12.3.jar;C:\Users\Karthik\.m2\repository\io\micrometer\micrometer-jakarta9\1.12.3\micrometer-jakarta9-1.12.3.jar;C:\Users\Karthik\.m2\repository\io\micrometer\micrometer-core\1.12.3\micrometer-core-1.12.3.jar;C:\Users\Karthik\.m2\repository\org\hdrhistogram\HdrHistogram\2.1.12\HdrHistogram-2.1.12.jar;C:\Users\Karthik\.m2\repository\org\latencyutils\LatencyUtils\2.0.3\LatencyUtils-2.0.3.jar;C:\Users\Karthik\.m2\repository\org\springframework\boot\spring-boot-starter-test\3.2.3\spring-boot-starter-test-3.2.3.jar;C:\Users\Karthik\.m2\repository\org\springframework\boot\spring-boot-test\3.2.3\spring-boot-test-3.2.3.jar;C:\Users\Karthik\.m2\repository\org\springframework\boot\spring-boot-test-autoconfigure\3.2.3\spring-boot-test-autoconfigure-3.2.3.jar;C:\Users\Karthik\.m2\repository\com\jayway\jsonpath\json-path\2.9.0\json-path-2.9.0.jar;C:\Users\Karthik\.m2\repository\jakarta\xml\bind\jakarta.xml.bind-api\4.0.1\jakarta.xml.bind-api-4.0.1.jar;C:\Users\Karthik\.m2\repository\jakarta\activation\jakarta.activation-api\2.1.2\jakarta.activation-api-2.1.2.jar;C:\Users\Karthik\.m2\repository\net\minidev\json-smart\2.5.0\json-smart-2.5.0.jar;C:\Users\Karthik\.m2\repository\net\minidev\accessors-smart\2.5.0\accessors-smart-2.5.0.jar;C:\Users\Karthik\.m2\repository\org\ow2\asm\asm\9.3\asm-9.3.jar;C:\Users\Karthik\.m2\repository\org\assertj\assertj-core\3.24.2\assertj-core-3.24.2.jar;C:\Users\Karthik\.m2\repository\org\awaitility\awaitility\4.2.0\awaitility-4.2.0.jar;C:\Users\Karthik\.m2\repository\org\hamcrest\hamcrest\2.2\hamcrest-2.2.jar;C:\Users\Karthik\.m2\repository\org\junit\jupiter\junit-jupiter\5.10.2\junit-jupiter-5.10.2.jar;C:\Users\Karthik\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.10.2\junit-jupiter-api-5.10.2.jar;C:\Users\Karthik\.m2\repository\org\opentest4j\opentest4j\1.3.0\opentest4j-1.3.0.jar;C:\Users\Karthik\.m2\repository\org\junit\platform\junit-platform-commons\1.10.2\junit-platform-commons-1.10.2.jar;C:\Users\Karthik\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\Karthik\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.10.2\junit-jupiter-params-5.10.2.jar;C:\Users\Karthik\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.10.2\junit-jupiter-engine-5.10.2.jar;C:\Users\Karthik\.m2\repository\org\junit\platform\junit-platform-engine\1.10.2\junit-platform-engine-1.10.2.jar;C:\Users\Karthik\.m2\repository\org\mockito\mockito-core\5.7.0\mockito-core-5.7.0.jar;C:\Users\Karthik\.m2\repository\net\bytebuddy\byte-buddy-agent\1.14.12\byte-buddy-agent-1.14.12.jar;C:\Users\Karthik\.m2\repository\org\objenesis\objenesis\3.3\objenesis-3.3.jar;C:\Users\Karthik\.m2\repository\org\mockito\mockito-junit-jupiter\5.7.0\mockito-junit-jupiter-5.7.0.jar;C:\Users\Karthik\.m2\repository\org\skyscreamer\jsonassert\1.5.1\jsonassert-1.5.1.jar;C:\Users\Karthik\.m2\repository\com\vaadin\external\google\android-json\0.0.20131108.vaadin1\android-json-0.0.20131108.vaadin1.jar;C:\Users\Karthik\.m2\repository\org\springframework\spring-core\6.1.4\spring-core-6.1.4.jar;C:\Users\Karthik\.m2\repository\org\springframework\spring-jcl\6.1.4\spring-jcl-6.1.4.jar;C:\Users\Karthik\.m2\repository\org\springframework\spring-test\6.1.4\spring-test-6.1.4.jar;C:\Users\Karthik\.m2\repository\org\xmlunit\xmlunit-core\2.9.1\xmlunit-core-2.9.1.jar;"/>
+    <property name="java.vm.vendor" value="Eclipse Adoptium"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="user.variant" value=""/>
+    <property name="java.vendor.url" value="https://adoptium.net/"/>
+    <property name="user.timezone" value="Asia/Calcutta"/>
+    <property name="org.jboss.logging.provider" value="slf4j"/>
+    <property name="os.name" value="Windows 10"/>
+    <property name="java.vm.specification.version" value="17"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="user.country" value="IN"/>
+    <property name="sun.boot.library.path" value="C:\Program Files\Eclipse Adoptium\jdk-17.0.17.10-hotspot\bin"/>
+    <property name="sun.java.command" value="C:\Users\Karthik\AppData\Local\Temp\surefire6140616190567140419\surefirebooter-20260222174830477_3.jar C:\Users\Karthik\AppData\Local\Temp\surefire6140616190567140419 2026-02-22T17-48-30_228-jvmRun1 surefire-20260222174830477_1tmp surefire_0-20260222174830477_2tmp"/>
+    <property name="jdk.debug" value="release"/>
+    <property name="test" value="StateGovtScraperTest"/>
+    <property name="surefire.test.class.path" value="C:\Users\Karthik\.gemini\antigravity\scratch\govt-job-aggregator\backend\target\test-classes;C:\Users\Karthik\.gemini\antigravity\scratch\govt-job-aggregator\backend\target\classes;C:\Users\Karthik\.m2\repository\org\springframework\boot\spring-boot-starter-web\3.2.3\spring-boot-starter-web-3.2.3.jar;C:\Users\Karthik\.m2\repository\org\springframework\boot\spring-boot-starter\3.2.3\spring-boot-starter-3.2.3.jar;C:\Users\Karthik\.m2\repository\org\springframework\boot\spring-boot\3.2.3\spring-boot-3.2.3.jar;C:\Users\Karthik\.m2\repository\org\springframework\boot\spring-boot-autoconfigure\3.2.3\spring-boot-autoconfigure-3.2.3.jar;C:\Users\Karthik\.m2\repository\org\springframework\boot\spring-boot-starter-logging\3.2.3\spring-boot-starter-logging-3.2.3.jar;C:\Users\Karthik\.m2\repository\ch\qos\logback\logback-classic\1.4.14\logback-classic-1.4.14.jar;C:\Users\Karthik\.m2\repository\ch\qos\logback\logback-core\1.4.14\logback-core-1.4.14.jar;C:\Users\Karthik\.m2\repository\org\apache\logging\log4j\log4j-to-slf4j\2.21.1\log4j-to-slf4j-2.21.1.jar;C:\Users\Karthik\.m2\repository\org\apache\logging\log4j\log4j-api\2.21.1\log4j-api-2.21.1.jar;C:\Users\Karthik\.m2\repository\org\slf4j\jul-to-slf4j\2.0.12\jul-to-slf4j-2.0.12.jar;C:\Users\Karthik\.m2\repository\jakarta\annotation\jakarta.annotation-api\2.1.1\jakarta.annotation-api-2.1.1.jar;C:\Users\Karthik\.m2\repository\org\yaml\snakeyaml\2.2\snakeyaml-2.2.jar;C:\Users\Karthik\.m2\repository\org\springframework\boot\spring-boot-starter-json\3.2.3\spring-boot-starter-json-3.2.3.jar;C:\Users\Karthik\.m2\repository\com\fasterxml\jackson\core\jackson-databind\2.15.4\jackson-databind-2.15.4.jar;C:\Users\Karthik\.m2\repository\com\fasterxml\jackson\core\jackson-annotations\2.15.4\jackson-annotations-2.15.4.jar;C:\Users\Karthik\.m2\repository\com\fasterxml\jackson\core\jackson-core\2.15.4\jackson-core-2.15.4.jar;C:\Users\Karthik\.m2\repository\com\fasterxml\jackson\datatype\jackson-datatype-jdk8\2.15.4\jackson-datatype-jdk8-2.15.4.jar;C:\Users\Karthik\.m2\repository\com\fasterxml\jackson\datatype\jackson-datatype-jsr310\2.15.4\jackson-datatype-jsr310-2.15.4.jar;C:\Users\Karthik\.m2\repository\com\fasterxml\jackson\module\jackson-module-parameter-names\2.15.4\jackson-module-parameter-names-2.15.4.jar;C:\Users\Karthik\.m2\repository\org\springframework\boot\spring-boot-starter-tomcat\3.2.3\spring-boot-starter-tomcat-3.2.3.jar;C:\Users\Karthik\.m2\repository\org\apache\tomcat\embed\tomcat-embed-core\10.1.19\tomcat-embed-core-10.1.19.jar;C:\Users\Karthik\.m2\repository\org\apache\tomcat\embed\tomcat-embed-websocket\10.1.19\tomcat-embed-websocket-10.1.19.jar;C:\Users\Karthik\.m2\repository\org\springframework\spring-web\6.1.4\spring-web-6.1.4.jar;C:\Users\Karthik\.m2\repository\org\springframework\spring-beans\6.1.4\spring-beans-6.1.4.jar;C:\Users\Karthik\.m2\repository\org\springframework\spring-webmvc\6.1.4\spring-webmvc-6.1.4.jar;C:\Users\Karthik\.m2\repository\org\springframework\spring-aop\6.1.4\spring-aop-6.1.4.jar;C:\Users\Karthik\.m2\repository\org\springframework\spring-context\6.1.4\spring-context-6.1.4.jar;C:\Users\Karthik\.m2\repository\org\springframework\spring-expression\6.1.4\spring-expression-6.1.4.jar;C:\Users\Karthik\.m2\repository\org\springframework\boot\spring-boot-starter-data-jpa\3.2.3\spring-boot-starter-data-jpa-3.2.3.jar;C:\Users\Karthik\.m2\repository\org\springframework\boot\spring-boot-starter-aop\3.2.3\spring-boot-starter-aop-3.2.3.jar;C:\Users\Karthik\.m2\repository\org\aspectj\aspectjweaver\1.9.21\aspectjweaver-1.9.21.jar;C:\Users\Karthik\.m2\repository\org\springframework\boot\spring-boot-starter-jdbc\3.2.3\spring-boot-starter-jdbc-3.2.3.jar;C:\Users\Karthik\.m2\repository\com\zaxxer\HikariCP\5.0.1\HikariCP-5.0.1.jar;C:\Users\Karthik\.m2\repository\org\springframework\spring-jdbc\6.1.4\spring-jdbc-6.1.4.jar;C:\Users\Karthik\.m2\repository\org\hibernate\orm\hibernate-core\6.4.4.Final\hibernate-core-6.4.4.Final.jar;C:\Users\Karthik\.m2\repository\jakarta\persistence\jakarta.persistence-api\3.1.0\jakarta.persistence-api-3.1.0.jar;C:\Users\Karthik\.m2\repository\jakarta\transaction\jakarta.transaction-api\2.0.1\jakarta.transaction-api-2.0.1.jar;C:\Users\Karthik\.m2\repository\org\jboss\logging\jboss-logging\3.5.3.Final\jboss-logging-3.5.3.Final.jar;C:\Users\Karthik\.m2\repository\org\hibernate\common\hibernate-commons-annotations\6.0.6.Final\hibernate-commons-annotations-6.0.6.Final.jar;C:\Users\Karthik\.m2\repository\io\smallrye\jandex\3.1.2\jandex-3.1.2.jar;C:\Users\Karthik\.m2\repository\com\fasterxml\classmate\1.6.0\classmate-1.6.0.jar;C:\Users\Karthik\.m2\repository\net\bytebuddy\byte-buddy\1.14.12\byte-buddy-1.14.12.jar;C:\Users\Karthik\.m2\repository\org\glassfish\jaxb\jaxb-runtime\4.0.4\jaxb-runtime-4.0.4.jar;C:\Users\Karthik\.m2\repository\org\glassfish\jaxb\jaxb-core\4.0.4\jaxb-core-4.0.4.jar;C:\Users\Karthik\.m2\repository\org\eclipse\angus\angus-activation\2.0.1\angus-activation-2.0.1.jar;C:\Users\Karthik\.m2\repository\org\glassfish\jaxb\txw2\4.0.4\txw2-4.0.4.jar;C:\Users\Karthik\.m2\repository\com\sun\istack\istack-commons-runtime\4.1.2\istack-commons-runtime-4.1.2.jar;C:\Users\Karthik\.m2\repository\jakarta\inject\jakarta.inject-api\2.0.1\jakarta.inject-api-2.0.1.jar;C:\Users\Karthik\.m2\repository\org\antlr\antlr4-runtime\4.13.0\antlr4-runtime-4.13.0.jar;C:\Users\Karthik\.m2\repository\org\springframework\data\spring-data-jpa\3.2.3\spring-data-jpa-3.2.3.jar;C:\Users\Karthik\.m2\repository\org\springframework\data\spring-data-commons\3.2.3\spring-data-commons-3.2.3.jar;C:\Users\Karthik\.m2\repository\org\springframework\spring-orm\6.1.4\spring-orm-6.1.4.jar;C:\Users\Karthik\.m2\repository\org\springframework\spring-tx\6.1.4\spring-tx-6.1.4.jar;C:\Users\Karthik\.m2\repository\org\springframework\spring-aspects\6.1.4\spring-aspects-6.1.4.jar;C:\Users\Karthik\.m2\repository\com\h2database\h2\2.2.224\h2-2.2.224.jar;C:\Users\Karthik\.m2\repository\org\springframework\boot\spring-boot-starter-validation\3.2.3\spring-boot-starter-validation-3.2.3.jar;C:\Users\Karthik\.m2\repository\org\apache\tomcat\embed\tomcat-embed-el\10.1.19\tomcat-embed-el-10.1.19.jar;C:\Users\Karthik\.m2\repository\org\hibernate\validator\hibernate-validator\8.0.1.Final\hibernate-validator-8.0.1.Final.jar;C:\Users\Karthik\.m2\repository\jakarta\validation\jakarta.validation-api\3.0.2\jakarta.validation-api-3.0.2.jar;C:\Users\Karthik\.m2\repository\org\projectlombok\lombok\1.18.30\lombok-1.18.30.jar;C:\Users\Karthik\.m2\repository\org\jsoup\jsoup\1.17.2\jsoup-1.17.2.jar;C:\Users\Karthik\.m2\repository\com\rometools\rome\2.1.0\rome-2.1.0.jar;C:\Users\Karthik\.m2\repository\com\rometools\rome-utils\2.1.0\rome-utils-2.1.0.jar;C:\Users\Karthik\.m2\repository\org\jdom\jdom2\2.0.6.1\jdom2-2.0.6.1.jar;C:\Users\Karthik\.m2\repository\org\slf4j\slf4j-api\2.0.12\slf4j-api-2.0.12.jar;C:\Users\Karthik\.m2\repository\com\bucket4j\bucket4j-core\8.10.1\bucket4j-core-8.10.1.jar;C:\Users\Karthik\.m2\repository\org\springframework\boot\spring-boot-starter-cache\3.2.3\spring-boot-starter-cache-3.2.3.jar;C:\Users\Karthik\.m2\repository\org\springframework\spring-context-support\6.1.4\spring-context-support-6.1.4.jar;C:\Users\Karthik\.m2\repository\com\github\ben-manes\caffeine\caffeine\3.1.8\caffeine-3.1.8.jar;C:\Users\Karthik\.m2\repository\org\checkerframework\checker-qual\3.37.0\checker-qual-3.37.0.jar;C:\Users\Karthik\.m2\repository\com\google\errorprone\error_prone_annotations\2.21.1\error_prone_annotations-2.21.1.jar;C:\Users\Karthik\.m2\repository\org\springframework\boot\spring-boot-starter-actuator\3.2.3\spring-boot-starter-actuator-3.2.3.jar;C:\Users\Karthik\.m2\repository\org\springframework\boot\spring-boot-actuator-autoconfigure\3.2.3\spring-boot-actuator-autoconfigure-3.2.3.jar;C:\Users\Karthik\.m2\repository\org\springframework\boot\spring-boot-actuator\3.2.3\spring-boot-actuator-3.2.3.jar;C:\Users\Karthik\.m2\repository\io\micrometer\micrometer-observation\1.12.3\micrometer-observation-1.12.3.jar;C:\Users\Karthik\.m2\repository\io\micrometer\micrometer-commons\1.12.3\micrometer-commons-1.12.3.jar;C:\Users\Karthik\.m2\repository\io\micrometer\micrometer-jakarta9\1.12.3\micrometer-jakarta9-1.12.3.jar;C:\Users\Karthik\.m2\repository\io\micrometer\micrometer-core\1.12.3\micrometer-core-1.12.3.jar;C:\Users\Karthik\.m2\repository\org\hdrhistogram\HdrHistogram\2.1.12\HdrHistogram-2.1.12.jar;C:\Users\Karthik\.m2\repository\org\latencyutils\LatencyUtils\2.0.3\LatencyUtils-2.0.3.jar;C:\Users\Karthik\.m2\repository\org\springframework\boot\spring-boot-starter-test\3.2.3\spring-boot-starter-test-3.2.3.jar;C:\Users\Karthik\.m2\repository\org\springframework\boot\spring-boot-test\3.2.3\spring-boot-test-3.2.3.jar;C:\Users\Karthik\.m2\repository\org\springframework\boot\spring-boot-test-autoconfigure\3.2.3\spring-boot-test-autoconfigure-3.2.3.jar;C:\Users\Karthik\.m2\repository\com\jayway\jsonpath\json-path\2.9.0\json-path-2.9.0.jar;C:\Users\Karthik\.m2\repository\jakarta\xml\bind\jakarta.xml.bind-api\4.0.1\jakarta.xml.bind-api-4.0.1.jar;C:\Users\Karthik\.m2\repository\jakarta\activation\jakarta.activation-api\2.1.2\jakarta.activation-api-2.1.2.jar;C:\Users\Karthik\.m2\repository\net\minidev\json-smart\2.5.0\json-smart-2.5.0.jar;C:\Users\Karthik\.m2\repository\net\minidev\accessors-smart\2.5.0\accessors-smart-2.5.0.jar;C:\Users\Karthik\.m2\repository\org\ow2\asm\asm\9.3\asm-9.3.jar;C:\Users\Karthik\.m2\repository\org\assertj\assertj-core\3.24.2\assertj-core-3.24.2.jar;C:\Users\Karthik\.m2\repository\org\awaitility\awaitility\4.2.0\awaitility-4.2.0.jar;C:\Users\Karthik\.m2\repository\org\hamcrest\hamcrest\2.2\hamcrest-2.2.jar;C:\Users\Karthik\.m2\repository\org\junit\jupiter\junit-jupiter\5.10.2\junit-jupiter-5.10.2.jar;C:\Users\Karthik\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.10.2\junit-jupiter-api-5.10.2.jar;C:\Users\Karthik\.m2\repository\org\opentest4j\opentest4j\1.3.0\opentest4j-1.3.0.jar;C:\Users\Karthik\.m2\repository\org\junit\platform\junit-platform-commons\1.10.2\junit-platform-commons-1.10.2.jar;C:\Users\Karthik\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\Karthik\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.10.2\junit-jupiter-params-5.10.2.jar;C:\Users\Karthik\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.10.2\junit-jupiter-engine-5.10.2.jar;C:\Users\Karthik\.m2\repository\org\junit\platform\junit-platform-engine\1.10.2\junit-platform-engine-1.10.2.jar;C:\Users\Karthik\.m2\repository\org\mockito\mockito-core\5.7.0\mockito-core-5.7.0.jar;C:\Users\Karthik\.m2\repository\net\bytebuddy\byte-buddy-agent\1.14.12\byte-buddy-agent-1.14.12.jar;C:\Users\Karthik\.m2\repository\org\objenesis\objenesis\3.3\objenesis-3.3.jar;C:\Users\Karthik\.m2\repository\org\mockito\mockito-junit-jupiter\5.7.0\mockito-junit-jupiter-5.7.0.jar;C:\Users\Karthik\.m2\repository\org\skyscreamer\jsonassert\1.5.1\jsonassert-1.5.1.jar;C:\Users\Karthik\.m2\repository\com\vaadin\external\google\android-json\0.0.20131108.vaadin1\android-json-0.0.20131108.vaadin1.jar;C:\Users\Karthik\.m2\repository\org\springframework\spring-core\6.1.4\spring-core-6.1.4.jar;C:\Users\Karthik\.m2\repository\org\springframework\spring-jcl\6.1.4\spring-jcl-6.1.4.jar;C:\Users\Karthik\.m2\repository\org\springframework\spring-test\6.1.4\spring-test-6.1.4.jar;C:\Users\Karthik\.m2\repository\org\xmlunit\xmlunit-core\2.9.1\xmlunit-core-2.9.1.jar;"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="user.home" value="C:\Users\Karthik"/>
+    <property name="user.language" value="en"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.version.date" value="2025-10-21"/>
+    <property name="java.home" value="C:\Program Files\Eclipse Adoptium\jdk-17.0.17.10-hotspot"/>
+    <property name="file.separator" value="\"/>
+    <property name="basedir" value="C:\Users\Karthik\.gemini\antigravity\scratch\govt-job-aggregator\backend"/>
+    <property name="java.vm.compressedOopsMode" value="Zero based"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="FILE_LOG_CHARSET" value="windows-1252"/>
+    <property name="java.awt.headless" value="true"/>
+    <property name="surefire.real.class.path" value="C:\Users\Karthik\AppData\Local\Temp\surefire6140616190567140419\surefirebooter-20260222174830477_3.jar"/>
+    <property name="user.script" value=""/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="java.runtime.version" value="17.0.17+10"/>
+    <property name="user.name" value="Karthik"/>
+    <property name="path.separator" value=";"/>
+    <property name="os.version" value="10.0"/>
+    <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
+    <property name="file.encoding" value="Cp1252"/>
+    <property name="sun.net.http.allowRestrictedHeaders" value="true"/>
+    <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
+    <property name="java.vendor.version" value="Temurin-17.0.17+10"/>
+    <property name="localRepository" value="C:\Users\Karthik\.m2\repository"/>
+    <property name="java.vendor.url.bug" value="https://github.com/adoptium/adoptium-support/issues"/>
+    <property name="java.io.tmpdir" value="C:\Users\Karthik\AppData\Local\Temp\"/>
+    <property name="com.zaxxer.hikari.pool_number" value="1"/>
+    <property name="java.version" value="17.0.17"/>
+    <property name="user.dir" value="C:\Users\Karthik\.gemini\antigravity\scratch\govt-job-aggregator\backend"/>
+    <property name="os.arch" value="amd64"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="PID" value="1584"/>
+    <property name="sun.os.patch.level" value=""/>
+    <property name="CONSOLE_LOG_CHARSET" value="windows-1252"/>
+    <property name="native.encoding" value="Cp1252"/>
+    <property name="java.library.path" value="C:\Program Files\Eclipse Adoptium\jdk-17.0.17.10-hotspot\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\Python314\Scripts\;C:\Python314\;C:\Program Files\Eclipse Adoptium\jdk-17.0.17.10-hotspot\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\apache-maven-3.9.12\bin;C:\Program Files\nodejs\;C:\ProgramData\chocolatey\bin;C:\Program Files\Git\cmd;C:\Users\Karthik\AppData\Local\Microsoft\WindowsApps;C:\Users\Karthik\AppData\Local\Programs\Antigravity\bin;C:\Users\Karthik\AppData\Roaming\npm;C:\Program Files\JetBrains\IntelliJ IDEA 2025.3.2\bin;C:\Users\Karthik\AppData\Local\Programs\Microsoft VS Code\bin;."/>
+    <property name="java.vm.info" value="mixed mode, sharing"/>
+    <property name="java.vendor" value="Eclipse Adoptium"/>
+    <property name="java.vm.version" value="17.0.17+10"/>
+    <property name="java.specification.maintenance.version" value="1"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="java.class.version" value="61.0"/>
+  </properties>
+  <testcase name="testScrape" classname="in.govtjobs.scraper.impl.StateGovtScraperTest" time="30.581">
+    <system-out><![CDATA[17:48:32.076 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [in.govtjobs.scraper.impl.StateGovtScraperTest]: StateGovtScraperTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+17:48:32.286 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration in.govtjobs.GovtJobAggregatorApplication for test class in.govtjobs.scraper.impl.StateGovtScraperTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.2.3)
+
+2026-02-22T17:48:33.128+05:30  INFO 1584 --- [           main] i.g.scraper.impl.StateGovtScraperTest    : Starting StateGovtScraperTest using Java 17.0.17 with PID 1584 (started by Karthik in C:\Users\Karthik\.gemini\antigravity\scratch\govt-job-aggregator\backend)
+2026-02-22T17:48:33.130+05:30  INFO 1584 --- [           main] i.g.scraper.impl.StateGovtScraperTest    : No active profile set, falling back to 1 default profile: "default"
+2026-02-22T17:48:35.127+05:30  INFO 1584 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-02-22T17:48:35.230+05:30  INFO 1584 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 89 ms. Found 1 JPA repository interface.
+2026-02-22T17:48:36.562+05:30  INFO 1584 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-02-22T17:48:36.746+05:30  INFO 1584 --- [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.4.4.Final
+2026-02-22T17:48:36.851+05:30  INFO 1584 --- [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-02-22T17:48:37.442+05:30  INFO 1584 --- [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-02-22T17:48:37.494+05:30  INFO 1584 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-02-22T17:48:37.796+05:30  INFO 1584 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:testdb user=SA
+2026-02-22T17:48:37.800+05:30  INFO 1584 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-02-22T17:48:40.047+05:30  INFO 1584 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-02-22T17:48:40.093+05:30 DEBUG 1584 --- [           main] org.hibernate.SQL                        : drop table if exists job_notices cascade 
+Hibernate: drop table if exists job_notices cascade 
+2026-02-22T17:48:40.119+05:30 DEBUG 1584 --- [           main] org.hibernate.SQL                        : create table job_notices (last_date date, published_date date, fetched_at timestamp(6) not null, id uuid not null, category varchar(50) not null, notice_type varchar(50), content_hash varchar(64) not null unique, state varchar(100) not null, engineering_branches varchar(200), source_name varchar(200) not null, title varchar(512) not null, apply_url varchar(1000), source_url varchar(1000) not null, primary key (id))
+Hibernate: create table job_notices (last_date date, published_date date, fetched_at timestamp(6) not null, id uuid not null, category varchar(50) not null, notice_type varchar(50), content_hash varchar(64) not null unique, state varchar(100) not null, engineering_branches varchar(200), source_name varchar(200) not null, title varchar(512) not null, apply_url varchar(1000), source_url varchar(1000) not null, primary key (id))
+2026-02-22T17:48:40.136+05:30 DEBUG 1584 --- [           main] org.hibernate.SQL                        : create index idx_category on job_notices (category)
+Hibernate: create index idx_category on job_notices (category)
+2026-02-22T17:48:40.142+05:30 DEBUG 1584 --- [           main] org.hibernate.SQL                        : create index idx_state on job_notices (state)
+Hibernate: create index idx_state on job_notices (state)
+2026-02-22T17:48:40.145+05:30 DEBUG 1584 --- [           main] org.hibernate.SQL                        : create index idx_notice_type on job_notices (notice_type)
+Hibernate: create index idx_notice_type on job_notices (notice_type)
+2026-02-22T17:48:40.145+05:30 DEBUG 1584 --- [           main] org.hibernate.SQL                        : create index idx_published_date on job_notices (published_date)
+Hibernate: create index idx_published_date on job_notices (published_date)
+2026-02-22T17:48:40.163+05:30  INFO 1584 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-02-22T17:48:41.532+05:30  INFO 1584 --- [           main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-02-22T17:48:44.390+05:30  WARN 1584 --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-02-22T17:48:46.892+05:30  INFO 1584 --- [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint(s) beneath base path '/actuator'
+2026-02-22T17:48:47.153+05:30  INFO 1584 --- [           main] i.g.scraper.impl.StateGovtScraperTest    : Started StateGovtScraperTest in 14.556 seconds (process running for 16.42)
+2026-02-22T17:48:47.272+05:30  INFO 1584 --- [           main] in.govtjobs.scheduler.ScraperScheduler   : ? Application ready - running initial scrape...
+TEST_STARTING_STATE_SCRAPE
+2026-02-22T17:48:49.595+05:30  INFO 1584 --- [           main] i.g.scraper.impl.StateGovtScraper        : [StateGovt/APPSC] Fetched 0 notices
+2026-02-22T17:48:50.212+05:30  INFO 1584 --- [           main] i.g.scraper.impl.StateGovtScraper        : [StateGovt/APPSC] Fetched 7 notices
+2026-02-22T17:48:50.291+05:30  INFO 1584 --- [ initial-scrape] in.govtjobs.service.ScraperService       : === Starting scrape run at 2026-02-22T17:48:50.291360900 ===
+2026-02-22T17:48:50.291+05:30  INFO 1584 --- [ initial-scrape] in.govtjobs.service.ScraperService       : Scraping: Employment News (Govt of India)
+2026-02-22T17:48:50.434+05:30  WARN 1584 --- [ initial-scrape] i.g.scraper.impl.EmploymentNewsScraper   : [EmploymentNews/Root] Failed: Connection reset
+2026-02-22T17:48:50.485+05:30  WARN 1584 --- [ initial-scrape] i.g.scraper.impl.EmploymentNewsScraper   : [EmploymentNews/NCS] Failed: Connection reset
+2026-02-22T17:48:50.486+05:30  INFO 1584 --- [ initial-scrape] i.g.scraper.impl.EmploymentNewsScraper   : [EmploymentNews] Fetched 0 notices
+2026-02-22T17:48:50.645+05:30  INFO 1584 --- [           main] i.g.scraper.impl.StateGovtScraper        : [StateGovt/APSC] Fetched 10 notices
+2026-02-22T17:48:51.491+05:30  INFO 1584 --- [ initial-scrape] in.govtjobs.service.ScraperService       : Scraping: IBPS (Institute of Banking Personnel Selection)
+2026-02-22T17:48:51.982+05:30  INFO 1584 --- [ initial-scrape] in.govtjobs.scraper.impl.IbpsScraper     : [IBPS] Fetched 25 notices
+2026-02-22T17:48:52.380+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:48:52.645+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+2026-02-22T17:48:52.691+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:48:52.695+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+2026-02-22T17:48:52.701+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:48:52.719+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:48:52.722+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:48:52.729+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+2026-02-22T17:48:52.735+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:48:52.741+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:48:52.746+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+2026-02-22T17:48:52.753+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:48:52.758+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:48:52.762+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+2026-02-22T17:48:52.769+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:48:52.773+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:48:52.778+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:48:52.782+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:48:52.786+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:48:52.792+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:48:52.796+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+2026-02-22T17:48:52.803+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:48:52.808+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+2026-02-22T17:48:52.819+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:48:52.825+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+2026-02-22T17:48:52.831+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:48:52.837+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+2026-02-22T17:48:52.842+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:48:52.846+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+2026-02-22T17:48:52.852+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:48:52.854+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+2026-02-22T17:48:52.858+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:48:52.864+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+2026-02-22T17:48:52.870+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:48:52.873+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+2026-02-22T17:48:52.880+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:48:52.882+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+2026-02-22T17:48:52.887+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:48:52.892+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+2026-02-22T17:48:52.895+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:48:52.903+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+2026-02-22T17:48:53.918+05:30  INFO 1584 --- [ initial-scrape] in.govtjobs.service.ScraperService       : Scraping: Medical / Health Govt Jobs (AIIMS, ESIC, NHM, MRB)
+2026-02-22T17:48:54.158+05:30  INFO 1584 --- [ initial-scrape] i.g.scraper.impl.MedicalJobsScraper      : [AIIMS] Fetched 0 notices
+2026-02-22T17:48:54.301+05:30 ERROR 1584 --- [ initial-scrape] i.g.scraper.impl.MedicalJobsScraper      : [ESIC] Failed to scrape: received handshake warning: unrecognized_name
+2026-02-22T17:48:54.432+05:30 ERROR 1584 --- [ initial-scrape] i.g.scraper.impl.MedicalJobsScraper      : [NHM] Failed to scrape: Connection reset
+2026-02-22T17:48:54.908+05:30  INFO 1584 --- [ initial-scrape] i.g.scraper.impl.MedicalJobsScraper      : [MRB] Fetched 20 notices
+2026-02-22T17:48:54.908+05:30  INFO 1584 --- [ initial-scrape] i.g.scraper.impl.MedicalJobsScraper      : [Medical] Total fetched 20 notices (AIIMS + ESIC + NHM + MRB)
+2026-02-22T17:48:54.908+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:48:54.912+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+2026-02-22T17:48:54.912+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:48:54.920+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:48:54.923+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+2026-02-22T17:48:54.926+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:48:54.929+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:48:54.932+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:48:54.935+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:48:54.937+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:48:54.940+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:48:54.942+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+2026-02-22T17:48:54.946+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:48:54.946+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+2026-02-22T17:48:54.952+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:48:54.952+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+2026-02-22T17:48:54.960+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:48:54.962+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:48:54.962+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:48:54.969+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+2026-02-22T17:48:54.972+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:48:54.975+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+2026-02-22T17:48:54.977+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:48:54.977+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+2026-02-22T17:48:54.981+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:48:54.984+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+2026-02-22T17:48:54.986+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:48:54.986+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+2026-02-22T17:48:54.992+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:48:54.993+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+2026-02-22T17:48:54.995+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:48:54.995+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+2026-02-22T17:48:56.008+05:30  INFO 1584 --- [ initial-scrape] in.govtjobs.service.ScraperService       : Scraping: PSU Jobs (ONGC & Central PSUs)
+2026-02-22T17:48:56.577+05:30 ERROR 1584 --- [ initial-scrape] in.govtjobs.scraper.impl.PsuScraper      : [PSU/ONGC] Failed to scrape: Unexpected end of file from server
+2026-02-22T17:48:57.583+05:30  INFO 1584 --- [ initial-scrape] in.govtjobs.service.ScraperService       : Scraping: Railway Recruitment Board (RRB)
+2026-02-22T17:48:58.375+05:30  INFO 1584 --- [ initial-scrape] in.govtjobs.scraper.impl.RrbScraper      : [RRB/RRC NR (Northern Railway)] Fetched 0 notices
+2026-02-22T17:48:59.981+05:30  INFO 1584 --- [ initial-scrape] in.govtjobs.scraper.impl.RrbScraper      : [RRB/RRB Ajmer] Fetched 15 notices
+2026-02-22T17:48:59.981+05:30  INFO 1584 --- [ initial-scrape] in.govtjobs.scraper.impl.RrbScraper      : [RRB] Total fetched 15 notices
+2026-02-22T17:48:59.983+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:48:59.986+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+2026-02-22T17:48:59.988+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:48:59.990+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+2026-02-22T17:48:59.992+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:48:59.994+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+2026-02-22T17:48:59.998+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:49:00.000+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:49:00.002+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:49:00.004+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+2026-02-22T17:49:00.006+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:49:00.009+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:49:00.010+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:49:00.014+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:49:00.016+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+2026-02-22T17:49:00.021+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:49:00.024+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+2026-02-22T17:49:00.028+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:49:00.031+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+2026-02-22T17:49:00.035+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:49:00.037+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+2026-02-22T17:49:00.040+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:49:00.042+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+2026-02-22T17:49:00.045+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:49:00.047+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+2026-02-22T17:49:00.852+05:30  WARN 1584 --- [           main] i.g.scraper.impl.StateGovtScraper        : [StateGovt/BPSC] Failed: Connect timed out
+2026-02-22T17:49:01.049+05:30  INFO 1584 --- [ initial-scrape] in.govtjobs.service.ScraperService       : Scraping: State Bank of India (SBI)
+2026-02-22T17:49:01.566+05:30  INFO 1584 --- [ initial-scrape] in.govtjobs.scraper.impl.SbiScraper      : [SBI] Fetched 18 notices
+2026-02-22T17:49:01.572+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:49:01.577+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+2026-02-22T17:49:01.582+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:49:01.587+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:49:01.590+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+2026-02-22T17:49:01.596+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:49:01.601+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+2026-02-22T17:49:01.605+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:49:01.608+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+2026-02-22T17:49:01.612+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:49:01.618+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+2026-02-22T17:49:01.620+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:49:01.629+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+2026-02-22T17:49:01.635+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:49:01.638+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+2026-02-22T17:49:01.644+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:49:01.648+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+2026-02-22T17:49:01.653+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:49:01.658+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+2026-02-22T17:49:01.663+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:49:01.667+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+2026-02-22T17:49:01.671+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:49:01.675+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+2026-02-22T17:49:01.683+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:49:01.687+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+2026-02-22T17:49:01.692+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:49:01.696+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+2026-02-22T17:49:01.704+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:49:01.707+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+2026-02-22T17:49:01.714+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:49:01.718+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+2026-02-22T17:49:01.722+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:49:01.727+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:49:01.795+05:30  INFO 1584 --- [           main] i.g.scraper.impl.StateGovtScraper        : [StateGovt/BSSC] Fetched 10 notices
+2026-02-22T17:49:02.322+05:30  INFO 1584 --- [           main] i.g.scraper.impl.StateGovtScraper        : [StateGovt/CGPSC] Fetched 1 notices
+2026-02-22T17:49:02.731+05:30  INFO 1584 --- [ initial-scrape] in.govtjobs.service.ScraperService       : Scraping: Staff Selection Commission (SSC)
+2026-02-22T17:49:03.120+05:30  INFO 1584 --- [ initial-scrape] in.govtjobs.scraper.impl.SscScraper      : [SSC/SSC NR (Northern Region)] Fetched 0 notices
+2026-02-22T17:49:03.601+05:30  INFO 1584 --- [ initial-scrape] in.govtjobs.scraper.impl.SscScraper      : [SSC/SSC MPR (Madhya Pradesh Region)] Fetched 0 notices
+2026-02-22T17:49:04.249+05:30  INFO 1584 --- [ initial-scrape] in.govtjobs.scraper.impl.SscScraper      : [SSC/SSC ER (Eastern Region)] Fetched 20 notices
+2026-02-22T17:49:04.249+05:30  INFO 1584 --- [ initial-scrape] in.govtjobs.scraper.impl.SscScraper      : [SSC] Total fetched 20 notices
+2026-02-22T17:49:04.250+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:49:04.253+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+2026-02-22T17:49:04.255+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:49:04.258+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+2026-02-22T17:49:04.259+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:49:04.263+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+2026-02-22T17:49:04.266+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:49:04.267+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+2026-02-22T17:49:04.269+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:49:04.274+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+2026-02-22T17:49:04.277+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:49:04.278+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+2026-02-22T17:49:04.282+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:49:04.283+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+2026-02-22T17:49:04.288+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:49:04.290+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+2026-02-22T17:49:04.293+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:49:04.296+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+2026-02-22T17:49:04.299+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:49:04.302+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+2026-02-22T17:49:04.305+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:49:04.308+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+2026-02-22T17:49:04.312+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:49:04.315+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+2026-02-22T17:49:04.320+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:49:04.323+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+2026-02-22T17:49:04.326+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:49:04.328+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+2026-02-22T17:49:04.333+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:49:04.336+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+2026-02-22T17:49:04.339+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:49:04.342+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+2026-02-22T17:49:04.345+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:49:04.347+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+2026-02-22T17:49:04.352+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:49:04.355+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+2026-02-22T17:49:04.358+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:49:04.364+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+2026-02-22T17:49:04.368+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+Hibernate: select jn1_0.id from job_notices jn1_0 where jn1_0.content_hash=? fetch first ? rows only
+2026-02-22T17:49:04.370+05:30 DEBUG 1584 --- [ initial-scrape] org.hibernate.SQL                        : insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_notices (apply_url,category,content_hash,engineering_branches,fetched_at,last_date,notice_type,published_date,source_name,source_url,state,title,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+2026-02-22T17:49:04.535+05:30  INFO 1584 --- [           main] i.g.scraper.impl.StateGovtScraper        : [StateGovt/GPSC] Fetched 6 notices
+2026-02-22T17:49:04.654+05:30  WARN 1584 --- [           main] i.g.scraper.impl.StateGovtScraper        : [StateGovt/GPSC] Failed: Connection reset
+2026-02-22T17:49:05.084+05:30  INFO 1584 --- [           main] i.g.scraper.impl.StateGovtScraper        : [StateGovt/HPSC] Fetched 10 notices
+2026-02-22T17:49:05.278+05:30  INFO 1584 --- [           main] i.g.scraper.impl.StateGovtScraper        : [StateGovt/HSSC] Fetched 10 notices
+2026-02-22T17:49:05.374+05:30  INFO 1584 --- [ initial-scrape] in.govtjobs.service.ScraperService       : Scraping: State Government PSC Jobs
+2026-02-22T17:49:05.616+05:30  INFO 1584 --- [ initial-scrape] i.g.scraper.impl.StateGovtScraper        : [StateGovt/APPSC] Fetched 0 notices
+2026-02-22T17:49:06.012+05:30  INFO 1584 --- [           main] i.g.scraper.impl.StateGovtScraper        : [StateGovt/HPPSC] Fetched 10 notices
+2026-02-22T17:49:06.035+05:30  INFO 1584 --- [ initial-scrape] i.g.scraper.impl.StateGovtScraper        : [StateGovt/APPSC] Fetched 7 notices
+2026-02-22T17:49:06.075+05:30  WARN 1584 --- [           main] i.g.scraper.impl.StateGovtScraper        : [StateGovt/JPSC] Failed: Connection reset
+2026-02-22T17:49:06.326+05:30  INFO 1584 --- [ initial-scrape] i.g.scraper.impl.StateGovtScraper        : [StateGovt/APSC] Fetched 10 notices
+2026-02-22T17:49:06.643+05:30  INFO 1584 --- [           main] i.g.scraper.impl.StateGovtScraper        : [StateGovt/KPSC] Fetched 0 notices
+2026-02-22T17:49:06.823+05:30  INFO 1584 --- [           main] i.g.scraper.impl.StateGovtScraper        : [StateGovt/Kerala PSC] Fetched 7 notices
+2026-02-22T17:49:07.224+05:30  INFO 1584 --- [           main] i.g.scraper.impl.StateGovtScraper        : [StateGovt/MPPSC] Fetched 10 notices
+2026-02-22T17:49:07.337+05:30  INFO 1584 --- [           main] i.g.scraper.impl.StateGovtScraper        : [StateGovt/MPSC] Fetched 0 notices
+2026-02-22T17:49:07.366+05:30  WARN 1584 --- [           main] i.g.scraper.impl.StateGovtScraper        : [StateGovt/Manipur PSC] Failed: mppsc.gov.in
+2026-02-22T17:49:07.418+05:30  WARN 1584 --- [           main] i.g.scraper.impl.StateGovtScraper        : [StateGovt/Meghalaya PSC] Failed: mpsc.nic.in
+2026-02-22T17:49:07.465+05:30  WARN 1584 --- [           main] i.g.scraper.impl.StateGovtScraper        : [StateGovt/Mizoram PSC] Failed: Connection reset
+2026-02-22T17:49:08.116+05:30  INFO 1584 --- [           main] i.g.scraper.impl.StateGovtScraper        : [StateGovt/NPSC] Fetched 4 notices
+2026-02-22T17:49:09.538+05:30  INFO 1584 --- [           main] i.g.scraper.impl.StateGovtScraper        : [StateGovt/OPSC] Fetched 3 notices
+2026-02-22T17:49:10.027+05:30  INFO 1584 --- [           main] i.g.scraper.impl.StateGovtScraper        : [StateGovt/PPSC] Fetched 10 notices
+2026-02-22T17:49:10.477+05:30  INFO 1584 --- [           main] i.g.scraper.impl.StateGovtScraper        : [StateGovt/RPSC] Fetched 10 notices
+2026-02-22T17:49:10.949+05:30  INFO 1584 --- [           main] i.g.scraper.impl.StateGovtScraper        : [StateGovt/SPSC] Fetched 10 notices
+2026-02-22T17:49:11.318+05:30  INFO 1584 --- [           main] i.g.scraper.impl.StateGovtScraper        : [StateGovt/TNPSC] Fetched 10 notices
+2026-02-22T17:49:11.350+05:30  WARN 1584 --- [           main] i.g.scraper.impl.StateGovtScraper        : [StateGovt/TSPSC] Failed: websitenew.tspsc.gov.in
+2026-02-22T17:49:12.043+05:30  INFO 1584 --- [           main] i.g.scraper.impl.StateGovtScraper        : [StateGovt/TPSC] Fetched 10 notices
+2026-02-22T17:49:12.878+05:30  INFO 1584 --- [           main] i.g.scraper.impl.StateGovtScraper        : [StateGovt/UPPSC] Fetched 10 notices
+2026-02-22T17:49:13.867+05:30  INFO 1584 --- [           main] i.g.scraper.impl.StateGovtScraper        : [StateGovt/UPSSSC] Fetched 6 notices
+2026-02-22T17:49:14.867+05:30  INFO 1584 --- [           main] i.g.scraper.impl.StateGovtScraper        : [StateGovt/UKPSC] Fetched 10 notices
+2026-02-22T17:49:15.347+05:30  INFO 1584 --- [           main] i.g.scraper.impl.StateGovtScraper        : [StateGovt/WBPSC] Fetched 10 notices
+2026-02-22T17:49:15.984+05:30  INFO 1584 --- [           main] i.g.scraper.impl.StateGovtScraper        : [StateGovt/DSSSB] Fetched 10 notices
+2026-02-22T17:49:16.327+05:30  INFO 1584 --- [           main] i.g.scraper.impl.StateGovtScraper        : [StateGovt/JKSSB] Fetched 5 notices
+2026-02-22T17:49:16.341+05:30  WARN 1584 --- [ initial-scrape] i.g.scraper.impl.StateGovtScraper        : [StateGovt/BPSC] Failed: Connect timed out
+2026-02-22T17:49:17.082+05:30  INFO 1584 --- [           main] i.g.scraper.impl.StateGovtScraper        : [StateGovt/Puducherry Admin] Fetched 10 notices
+2026-02-22T17:49:17.601+05:30  INFO 1584 --- [           main] i.g.scraper.impl.StateGovtScraper        : [StateGovt/Chandigarh Admin] Fetched 2 notices
+2026-02-22T17:49:17.820+05:30  INFO 1584 --- [ initial-scrape] i.g.scraper.impl.StateGovtScraper        : [StateGovt/BSSC] Fetched 10 notices
+2026-02-22T17:49:17.868+05:30  INFO 1584 --- [           main] i.g.scraper.impl.StateGovtScraper        : [StateGovt/A&N Admin] Fetched 0 notices
+2026-02-22T17:49:17.868+05:30  INFO 1584 --- [           main] i.g.scraper.impl.StateGovtScraper        : [StateGovt] Total fetched 201 notices across all States/UTs
+TEST_SCRAPE_COUNT: 201
+  - Arunachal Pradesh: Notifications
+  - Arunachal Pradesh: Advertisements
+  - Arunachal Pradesh: Notification for documents verification of JECRE-2025
+  - Arunachal Pradesh: Notification of Viva Voce of AESE-25 for the post of AE (Civil).
+  - Arunachal Pradesh: Notification Regarding Use of Calculator in PGT(Mains) Examination - 2025
+  - Arunachal Pradesh: Notification dated 23.01.26 regarding Post Graduate Teacher (MAINS) Examination - 2025
+  - Arunachal Pradesh: Advertisement of Assistant Professor Examination-2026
+  - Assam: index.php#latest advt
+  - Assam: Direct Recruitment
+  - Assam: Recruitment Advertisements
+  - Assam: Notifications
+  - Assam: List of candidates for the post of Junior Engineer (Civil) under Fishery Department (Advt. No. 17/2025)
+  - Assam: Notification regarding Screening Test (OMR-based), Junior Engineer(Civil), Fishery Department (Advt. No. 17/2025 dtd. 25-04-2025)
+  - Assam: Download Intimation Letter for Viva-voce/Interview for the posts of Junior Administrative Assistant (JAA), Establishment of Assam Public Service Commission [Advt. No. 24/2024, 13-12-2024]
+  - Assam: Notification regarding Viva-voce/Interview for the posts of Lecturer in D.I.E.Ts under the Directorate of SCERT, Assam (Advt. No. 15/2024 dated 23-07-2024)
+  - Assam: Notification regarding Viva-voce/Interview, Junior Administrative Assistant under the Establishment of the Assam Public Service Commission [Advt. No. 24/2024, 13-12-2024]
+  - Assam: Notification regarding Screening Test (OMR-based), Junior Engineer (Civil/Mechanical/Chemical/Electrical) under Public Health Engineering Department (Advt. No. 27/2025, dtd. 11-08-2025)
+  - Bihar: Important Notice Regarding Typing Test for Adv. No.- 02/25, Post- Welfare Organiser and Lower Division Clerk (Sainik Kalyan Nideshalaya)
+  - Bihar: Important Notice Regarding NIT for Software Solution for Creation And Integration Of Recruitment Website
+  - Bihar: Important Notice Regarding Date Extension of Advt No.-02/23(A), Second Inter Level Combined Competitive Examination
+  - Bihar: Important Notice Regarding Date Extension of Advt No.-02/23(A), Second Inter Level Combined Competitive Examination
+  - Bihar: Important Notice Regarding Typing Test for Adv. No.- 02/25, Post- Welfare Organiser and Lower Division Clerk (Sainik Kalyan Nideshalaya)
+  - Bihar: Important Notice Regarding Date Extension of Advt No.-02/23(A), Second Inter Level Combined Competitive Examination
+  - Bihar: Important Notice Regarding Adv No.- 06/25, Post- Office Attendant/Attendant(Special) Combined Competitive Exam
+  - Bihar: Important Notice Regarding Adv No.- 05/25, Post- 4TH Graduate Level Combined Competitive Exam
+  - Bihar: Important Notice Regarding Date Extension of Adv No.- 08/25, Post- Sports Trainer
+  - Bihar: Important Notice Regarding Date Extension of Adv No.- 08/25, Post- Sports Trainer
+  - Chhattisgarh: Notifications
+  - Goa: Scheme of Examinations for all Posts other than Junior Scale Officer/ Dy.S.P.
+  - Goa: Shortlisting For Medical, Dental and Allied Subject Posts
+  - Goa: Advertisements
+  - Goa: Scheme of Examinations for all Posts other than Junior Scale Officer/ Dy.S.P.
+  - Goa: Shortlisting For Medical, Dental and Allied Subject Posts
+  - Goa: Advertisements
+  - Haryana: Click here to apply online for Advt No. 03 of 2026 - Senior Scientific Officer (DNA) (Group-B) in Forensic Science Laboratory, Madhuban, Karnal, Haryana
+  - Haryana: Click here to apply online for Advt No. 20 of 2026 - Senior Scientific Officer (Scene of Crime) (Group-B) in Forensic Science Laboratory, Madhuban, Karnal, Haryana
+  - Haryana: Click here to apply online for Advt No. 22 of 2026 - HCS (Ex. Br.) & Other Allied Services
+  - Haryana: Click here to apply online for Advt No. 23 of 2026 - Post Graduate Teachers (PGTs) in the subject of Computer Science for Rest of Haryana Cadre & Mewat Cadre
+  - Haryana: Announcement dated 20.02.2026 regarding Final Rejection for the Posts of Chemist, HPGCL in Power Department (Advt. No. 11/2024)
+  - Haryana: Announcement dated 20.02.2026 regarding Provisionally Rejection for the Posts of Treasury Officer & Assistant Treasury Officer in Finance Department, Haryana (Advt. No. 23/2023)
+  - Haryana: Marks dated 20.02.2026 of interviewed candidate bearing Roll No. 21006 for the posts of Assistant Professor (College Cadre) in the subject of Botany (Advt. No. 42/2024) in Higher Education Department
+  - Haryana: Announcement dated 18.02.2026 for Advt. No. 11/2026 for the post of Manager (Legal) in Haryana State Industrial & Infrastructure Development Corporation Department, Haryana
+  - Haryana: Announcement dated 17.02.2026 regarding withdrawn of announcement dated 17.02.2026, Scrutiny of Documents for the posts of Assistant Professor (College Cadre) - Psychology (Advt. No. 63/2024) in Hi...
+  - Haryana: Announcement dated 17.02.2026 regarding schedule of documents verification to be held on 06.03.2026, 09.03.2026 & 10.03.2026 for the posts of Assistant Professor (College Cadre) in the subjects of ...
+  - Haryana: Home About Overview Functions Organisation Structure Commission Branch Information Contact Recruitment Process Instructi…
+  - Haryana: Recruitment Process Instructions to Applicants Apply for Job
+  - Haryana: Advertisements
+  - Haryana: Home About Overview Functions Organisation Structure Commission Branch Information Contact Recruitment Process Instructi…
+  - Haryana: E-Citizen Right to Information Public Notice Citizen Charter Notifications FAQ’s
+  - Haryana: Notifications
+  - Haryana: Right to Information Public Notice Citizen Charter Notifications FAQ’s
+  - Haryana: Home About Overview Functions Organisation Structure Commission Branch Information Contact Recruitment Process Instructi…
+  - Haryana: Notice for requirement of Scribe for PwBD candidates for Skill and/or Written Examination for various Group C posts under Advt. 02/2026 & Advt. 03/2026 | 2026-02-01
+  - Haryana: Public Notice for age relaxation and date extension for Advt. No. 1/2026 | 2026-01-22
+  - Himachal Pradesh: Recruitment Methods(98 ) KB
+  - Himachal Pradesh: Recruitment Methods
+  - Himachal Pradesh: Notifications
+  - Himachal Pradesh: Advertisement ADVERTISEMENT NO.1/1-2026 (STATE ELIGIBILITY TEST-2026)(268 ) KB Advertisement Number: 45/11-2025 (Medical…
+  - Himachal Pradesh: ADVERTISEMENT NO.1/1-2026 (STATE ELIGIBILITY TEST-2026)(268 ) KB
+  - Himachal Pradesh: Advertisement Number: 45/11-2025 (Medical Officer - General Wing (Job Trainee) in the Department of Health and Family Welfare, H.P.(214 ) KB
+  - Himachal Pradesh: ADVERTISEMENT NUMBER: 44/11-2025 SCIENTIFIC OFFICER (CHEMISTRY AND TOXICOLOGY) DEPARTMENT OF HOME.HP(210 ) KB
+  - Himachal Pradesh: ADVERTISEMENT NUMBER: 43/11-2025 SCIENTIFIC OFFICER (BIOLOGYAND SEROLOGY) DEPARTMENT OF HOME.HP(210 ) KB
+  - Himachal Pradesh: ADVERTISEMENT NUMBER: 42/11-2025 (ASSISTANT DIRECTOR (VOICE ANALYSIS) DEPARTMENT OF HOME. HP(210 ) KB
+  - Himachal Pradesh: ADVERTISEMENT NUMBER: 41/11-2025 (ASSISTANT DIRECTOR (BIOLOGY AND SEROLOGY) DEPARTMENT OF HOME. HP(210 ) KB
+  - Kerala: notifications
+  - Kerala: notifications
+  - Kerala: Notifications
+  - Kerala: Status of Posts
+  - Kerala: Must Know Candidates Registration Expression of Interest for Engineering Colleges Award of Weightage Instruction regardi…
+  - Kerala: Expression of Interest for Engineering Colleges
+  - Kerala: Home - Notifications
+  - Madhya Pradesh: Advertisements
+  - Madhya Pradesh: Interview Call Letter - Medical Officer 2024
+  - Madhya Pradesh: Recruitment Advertisement for Assistant Town Planner, 2026 (Urban Development Department - Government of Madhya Pradesh) (Advt. No./02/2026), Dated 02/02/2026
+  - Madhya Pradesh: Recruitment Advertisement for Inspector of Boiler Grade-2, 2026 (Industrial Policy and Investment Promotion Department - Government of Madhya Pradesh) (Advt. No./01/2026), Dated 21/01/2026
+  - Madhya Pradesh: Recruitment Advertisement for Ayurveda Medical Officer Examination 2025 (Advt. No./31/2025), Dated 31/12/2025
+  - Madhya Pradesh: Recruitment Advertisement for Homeopathic Medical Officer Examination 2025 (Advt. No./32/2025), Dated 31/12/2025
+  - Madhya Pradesh: Recruitment Advertisement for Unani Medical Officer Examination 2025 (Advt. No./33/2025), Dated 31/12/2025
+  - Madhya Pradesh: Recruitment Advertisement for Assistant Registrar 2025 (Advt. No. 34/2025), Dated 31/12/2025
+  - Madhya Pradesh: Recruitment Advertisement for Assistant Director, Farmer Welfare and Agriculture Development Department (Field and Extension) 2025 (Advt. No. 35/2025), Dated 31/12/2025
+  - Madhya Pradesh: Recruitment Advertisement for State Forest Service Examination 2026 (Advt. 30/2025), Dated 31/12/2025
+  - Nagaland: Notifications
+  - Nagaland: Notification NO.NPSC/EXAM-6/2022 dt.20.02.2026 (Physical Fitness Test for Dy.SP NPTO ) New
+  - Nagaland: Notification NO.NPSC/EXAM-14/2023 dt.17.02.2026 (Physical Fitness Test for ACF ) New
+  - Nagaland: Notifications Browse and view all the notifications issued. Open
+  - Odisha: Advertisements
+  - Odisha: Notifications
+  - Odisha: Recruitment Calendar
+  - Punjab: LIST OF OFFICERS
+  - Punjab: LIST OF OFFICERS
+  - Punjab: LATEST NOTIFICATIONS
+  - Punjab: Public Notice Regarding Specimen of Answer Book for Punjab State Civil Services Combined Competitive Mains Examination-2025 Uploaded on 20-02-2026
+  - Punjab: PUBLIC NOTICE REGARDING PROVISIONALLY FURTHER SHORTLISTED CANDIDATES FOR RECRUITMENT TO RECRUITMENT TO 01 POST OF ARCHAEOLOGICAL CHEMIST GROUP-B IN THE DEPARTMENT OF TOURISM AND CULTURAL AFFAIRS GO...
+  - Punjab: TIME SLOT FOR COMPETITIVE EXAMINATION FOR RECRUITMENT TO 21 POSTS OF DISTRICT DEFENCE SERVICES WELFARE OFFICER GROUP-A IN THE DEPARTMENT OF DEFENCE SERVICES WELFARE UPLOADED ON 16-02-2026
+  - Punjab: Public Notice Regarding Schedule Of Punjab State Civil Services Combined Competitive Mains Examination-2025 Uploaded On 02-02-2026
+  - Punjab: PUBLIC NOTICE REGARDING SCRUTINY OF DOCUMENTS FOR 03 POSTS OF SENIOR SCALE STENOGRAPHER IN THE OFFICE OF PUNJAB PUBLIC SERVICE COMMISSION PATIALA UPLOADED ON 06-01-2026
+  - Punjab: TIME SLOT FOR COMPETITIVE EXAMINATION FOR RECRUITMENT TO 19 POSTS OF CHILD DEVELOPMENT PROJECT OFFICER GROUP-B IN THE DEPARTMENT OF SOCIAL SECURITY AND DEVELOPMENT OF WOMEN AND CHILDREN GOVERNMENT ...
+  - Punjab: PUBLIC NOTICE REGARDING REJECTED CANDIDATES FOR THE RECRUITMENT TO 10 POSTS OF SANITARY INSPECTOR GROUP-B IN THE DEPARTMENT OF LOCAL GOVERNMENT UPLOADED ON 29-12-2025
+  - Rajasthan: Recruitment Advertisements
+  - Rajasthan: Computer Based Recruitment Test (CBRT)
+  - Rajasthan: Recruitment Advertisements
+  - Rajasthan: 18/02/2026 Marks for Asst. Fisheries Development Officer 2024
+  - Rajasthan: 18/02/2026 Main Merit List for Asst. Fisheries Development Officer - 2024
+  - Rajasthan: 17/02/2026 Interview Letter for the post of Assistant Professor- Music (Vocal), College Education Deptt. (Adv. No. 01/2023-24 Date 22-06-2023)
+  - Rajasthan: 17/02/2026 Press Note Regarding Withdraw Application Form for Inspector of Factories and Boilers- 2025 and Inspector of Factories (Chemical)-2025
+  - Rajasthan: 17/02/2026 Press Note Regarding Withdraw Application Form for Statistical Officer - 2025
+  - Rajasthan: 16/02/2026 Amended Press Note Regarding Subjectwise Exam Date for Asst. Engineer Comb. Comp. Exam (Mains) - 2024
+  - Rajasthan: 13/02/2026 Interview Letter for the post of Assistant Professor- Economics, College Education Deptt. (Adv. No. 01/2023-24 Date 22-06-2023) (Till Phase-I)
+  - Sikkim: For further information, please visit the Notices/ Advertisement link
+  - Sikkim: Notifications
+  - Sikkim: Assistant Engineer (Electrical)
+  - Sikkim: Advertisements
+  - Sikkim: Important Information for all prospective candidates regarding the upgraded Recruitment Process Application (RPA) 3.0
+  - Sikkim: Assistant Engineer (Electrical) New Notice regarding Written Examination to the post of Assistant Engineer (Electrical) under Sikkim State Electrical Servies.
+  - Sikkim: Block Officer and Forest Guard New Notice regarding Availing the facility of Scribe by Persons with Benchmark Disabilities to the Post of Block Officer and Forest Guard Examination, 2026
+  - Sikkim: Rejection list for the post of Forest Guard New Notice regarding rejection of candidates under Ex Servicemen and Paramilitary Force & Assam Rifle category for the post of Forest Guard under Forest ...
+  - Sikkim: Extension of date for Submission of Online Application Form New Notice regarding Extension of date for Submission of Online Application form for the posts of Under Secretary, Sub-Inspector (Excise)...
+  - Sikkim: Assistant Engineer (Electrical) New Notice regarding Written Examination to the post of Assistant Engineer (Electrical) under Sikkim State Electrical Servies.
+  - Tamil Nadu: Grievance Redressal Officer
+  - Tamil Nadu: Notifications
+  - Tamil Nadu: DNotification
+  - Tamil Nadu: Examination for All India Service Officers
+  - Tamil Nadu: AISONotification
+  - Tamil Nadu: Recruitment Requisition
+  - Tamil Nadu: Motor Vehicle Inspector, Grade–II(03/2018)-Recruitment
+  - Tamil Nadu: THE OMR ANSWER SHEETS FOR COMBINED CIVIL SERVICES EXAMINATION-II & IIA (GROUP-II & IIA SERVICES) (NOTIFICATION NO.08/2024, DATED 20.06.2024) HAVE BEEN HOSTED ON THE COMMISSION’S WEBSITE ON 17.02.20...
+  - Tamil Nadu: COMBINED TECHNICAL SERVICES EXAMINATION (INTERVIEW POSTS) (Oral Test)
+  - Tamil Nadu: COMBINED TECHNICAL SERVICES EXAMINATION (INTERVIEW POSTS) (Oral Test)
+  - Tripura: Advertisement (Direct Recruitment)
+  - Tripura: Online Recruitment Application (ORA)
+  - Tripura: Notifications
+  - Tripura: Notifications Important Instruction Guidelines Tenders Exam Program
+  - Tripura: Notifications Important Instruction Guidelines Tenders Exam Program
+  - Tripura: notifications
+  - Tripura: Notification regarding recruitment to the post of Assistant Professor in Education , Govt.(General) Degree Colleges(Advt. No-01/2021)
+  - Tripura: Programme of Interview/Personality Test for recruitment to Miscellaneous Posts(Advt. No-13/2023)
+  - Tripura: Notification regarding tentative revised schedule of examinations of various recruitment process under TPSC
+  - Tripura: Notification regarding Departmental Examination for IAS & TCS, Gr-II and IPS & TPS, Gr-II Officers, May,2026
+  - Uttar Pradesh: {{'Recruitment_HM' | translate }}
+  - Uttar Pradesh: {{'OnlineNotifications_HM' | translate }}
+  - Uttar Pradesh: NOTICE REGARDING ADVT. NO.D-2/E-1/2025, DIRECTORATE OF MUSEUMS UTTAR PRADESH / A..
+  - Uttar Pradesh: REVISED NOTICE REGARDING MARKSHEET & CUT OFF FOR ADVT. NO. D-3-E-1-2023, [S-01-0..
+  - Uttar Pradesh: NOTICE REGARDING ADVT NO.:A-8/E-1/2024, ARCHITECTURAL-CUM PLANNING ASSISTANT (MA..
+  - Uttar Pradesh: NOTICE REGARDING ADVT. NO. D-2/E-1/2025, UTTAR PRADESH AYUSH (UNANI) DEPARTMENT ..
+  - Uttar Pradesh: NOTICE REGARDING ADVT. NO. A-1/E-1/2025, ASSISTANT CONSERVATOR OF FOREST (A.C.F)..
+  - Uttar Pradesh: NOTICE REGARDING INTERVIEW FOR ADVT. NO.A-1/E-1/2024, COMBINED STATE/UPPER SUBO..
+  - Uttar Pradesh: LIST OF CANDIDATES QUALIFIED FOR INTERVIEW IN ADVT NO A-5/E-1/2024 UTTAR PRADESH..
+  - Uttar Pradesh: LIST OF CANDIDATES QUALIFIED FOR INTERVIEW IN COMBINED STATE/UPPER SUBORDINATE S..
+  - Uttar Pradesh: Notifications/Advertisements
+  - Uttar Pradesh: Document Upload Under The Advt. 10-Exam/2024 (B.C.G. Technician)
+  - Uttar Pradesh: Download Form For Eligibility Checking: Direct Recruitment
+  - Uttar Pradesh: Download Interview Letters: Direct Recruitment
+  - Uttar Pradesh: Current Status of Published Advertisements
+  - Uttar Pradesh: Direct Recruitment under Advt. No: 02-EXAM/2025 start from 29/12/2025
+  - Uttarakhand: RTI Public Information Officers Appellate Authority RTI Manuals
+  - Uttarakhand: Public Information Officers
+  - Uttarakhand: Public Information Officers Appellate Authority RTI Manuals
+  - Uttarakhand: Recruitment GOs
+  - Uttarakhand: Recruitment Notifications
+  - Uttarakhand: Renewal of the Panel of Advocates--Notification regarding Renewal of the Panel of Advocates by the Commission, Detailed Notification & Bio Data Format ( Recruitment Notification )
+  - Uttarakhand: Senior Scientific Assistant, Forensic Science Laboratory (Group-B) Examination-2024-- Office Memo ( Recruitment )
+  - Uttarakhand: Uttarakhand Judicial Service Civil Judge (Junior Division) Exam-2023-- Notification ( Recruitment Notification )
+  - Uttarakhand: Additional Private Secretary Exam-2024 -- Detailed Notification, checklist, Format 02,03,04 and Self Declaration regarding difference in name ( Recruitment )
+  - Uttarakhand: Senior Scientific Assistant, Forensic Science Laboratory (Group-B) Examination-2024-- Notification, Interview Programme, Interview Memo, Format 02,03 and 04, Self Declaration regarding Difference i...
+  - West Bengal: Home About PSC, WB History Constitutional Provision Composition Roles and Functions Annual Reports Gallery Advertisement…
+  - West Bengal: Home About PSC, WB History Constitutional Provision Composition Roles and Functions Annual Reports Gallery Advertisement…
+  - West Bengal: Advertisement/ Announcement
+  - West Bengal: advertisement.jsp
+  - West Bengal: Home About PSC, WB History Constitutional Provision Composition Roles and Functions Annual Reports Gallery Advertisement…
+  - West Bengal: Home About PSC, WB History Constitutional Provision Composition Roles and Functions Annual Reports Gallery Advertisement…
+  - West Bengal: IMPORTANT ANNOUNCEMENT REGARDING THE SCHEDULE OF THE FORTHCOMING INTERVIEW FOR RECTT. TO THE POST OF LABORATORY ASSISTANT IN FOOD PROCESSING TECHNOLOGY IN GOVERNMENT POLYTECHNICS IN THE DIRECTORATE...
+  - West Bengal: IMPORTANT ANNOUNCEMENT REGARDING HALF-YEARLY PROFESSIONAL EXAMINATION OF ASSISTANT ENGINEERS AND JUNIOR ENGINEERS OF P.W.D., I & W DIRECTORATE ETC. GOVT. OF W.B., NOVEMBER, 2024
+  - West Bengal: INDICATIVE ADVERTISEMENT TO THE POST OF LIMITED DEPARTMENTAL EXAMINATION OF ELIGIBLE EMPLOYEES OF THE GOVT. OF WEST BENGAL FOR PROMOTION TO THE POSTS IN THE WEST BENGAL AUDIT & ACCOUNTS SERVICE, 20...
+  - West Bengal: PROGRAMME OF HALF-YEARLY PROFESSIONAL EXAMINATION OF ASSISTANT ENGINEERS AND JUNIOR ENGINEERS OF P.W.D., I & W DTE. ETC., GOVT. OF W.B., NOVEMBER, 2024
+  - Delhi: All OMs Related to Combined Exam
+  - Delhi: Recruitment Rules of Combined Exam
+  - Delhi: Orders Recruitments Tenders Latest Update News
+  - Delhi: Recruitments
+  - Delhi: Orders Recruitments Tenders Latest Update News
+  - Delhi: Orders Recruitments Tenders Latest Update News
+  - Delhi: OBJECTION LINK FOR POST CODES 54/25, 53/25, 18/25, 31/25
+  - Delhi: INVITING APPLICATIONS FROM BOC/DAVP EMPANELLED AGENCIES BASED IN DELHI NCR FOR EMPANELMENT IN THE OFFICE OF CHIEF ELECTORAL OFFICER (CEO)-DELHI FOR ELECTRONIC MEDIA CAMPAIGNS AT DAVP RATES
+  - Delhi: Notifications
+  - Delhi: vacancy notice advertisement no 012026 combined examinations 2026 post legal assistant 0
+  - Jammu & Kashmir: Recruitment Calendar
+  - Jammu & Kashmir: Login Old Login Apply for Various Posts New User / Sign Up Forgot Password Get Activation Link
+  - Jammu & Kashmir: Old Login Apply for Various Posts New User / Sign Up Forgot Password Get Activation Link
+  - Jammu & Kashmir: Apply for Various Posts
+  - Jammu & Kashmir: Assistant Scientific Officer (Crime Scene)
+  - Puducherry: Login Online Portal for Government Recruitments Department of Personnel and Administrative Reforms Government of Puduche…
+  - Puducherry: Home About News & Notifications Contact Us User Manual
+  - Puducherry: Home About News & Notifications Contact Us User Manual
+  - Puducherry: News & Notifications
+  - Puducherry: Home About News & Notifications Contact Us User Manual
+  - Puducherry: Home About News & Notifications Contact Us User Manual
+  - Puducherry: Post exam Press release
+  - Puducherry: Please select desired recruitment from the list below to know the details or login to continue.
+  - Puducherry: Direct recruitment to the post of Physical Education Teacher, 2026
+  - Puducherry: Direct recruitment to the post of Agricultural Officer (Hydrogeology), 2025 (CGL-Exam)
+  - Chandigarh: Order's/Notifications
+  - Chandigarh: Orders/Notifications
+]]></system-out>
+  </testcase>
+</testsuite>

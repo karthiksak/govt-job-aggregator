@@ -87,7 +87,16 @@ public class ScraperService {
         ScraperResult result = new ScraperResult(total.get(), saved.get(), skipped.get(), errors.get());
         log.info("=== Scrape complete: {} total, {} saved, {} skipped, {} errors ===",
                 result.total(), result.saved(), result.skipped(), result.errors());
+
+        // Clear caches so the frontend sees new states/categories immediately
+        evictCaches();
+
         return result;
+    }
+
+    @org.springframework.cache.annotation.CacheEvict(value = { "states", "categories" }, allEntries = true)
+    public void evictCaches() {
+        log.info("Cleared states and categories cache after scrape run.");
     }
 
     /**

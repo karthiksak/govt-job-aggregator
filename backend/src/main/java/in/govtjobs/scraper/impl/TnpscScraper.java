@@ -23,8 +23,10 @@ import java.util.List;
 public class TnpscScraper implements JobNoticeSource {
 
     private static final String BASE_URL = "https://www.tnpsc.gov.in";
-    // Root page has job notifications via anchor links
-    private static final String URL = "https://www.tnpsc.gov.in";
+    // home.aspx loads the "What's New" announcements list with dated notices.
+    // Root URL (/) just redirects and selectors don't match; home.aspx is the
+    // correct entry point.
+    private static final String URL = "https://www.tnpsc.gov.in/home.aspx";
     private final ScraperUtils utils;
 
     @Override
@@ -51,15 +53,16 @@ public class TnpscScraper implements JobNoticeSource {
     public List<RawNotice> fetchRaw() {
         List<RawNotice> notices = new ArrayList<>();
         try {
-            Document doc = utils.fetchPageLax(URL);
-            // Try all links with relevant href or text
-            Elements links = doc.select(
-                    "a[href*='notification'], a[href*='Notification'], a[href*='recruit'], " +
-                            "a[href*='Recruit'], a[href*='pdf'], a[href*='vacancy'], a[href*='group']");
+            Document doc = utils.fetchPageLax(URL, 15000);
+            // TNPSC home.aspx has a "Whats new" section as a <ul> list with date + title
+            // links.
+            // Broad selector: capture all list and table-row links, then filter by title
+            // relevance.
+            Elements links = doc.select("ul li a, table tr td a, a[href*='pdf'], a[href*='aspx']");
 
             if (links.isEmpty()) {
-                // Fallback: table rows
-                links = doc.select("table tr a, ul li a");
+                // Fallback: any anchor
+                links = doc.select("a[href]");
             }
 
             for (Element link : links) {
