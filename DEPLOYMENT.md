@@ -35,7 +35,7 @@ We deploy the backend first, so we know what its URL is. This URL will be used b
 Now that you have your backend URL, let's connect the frontend.
 
 ### Step 2.1: Update the Vercel Config
-Before deploying, open the `vercel.json` file in the root of the project. Make sure the Destination URL points to your actual Render backend URL that you created in Step 1.
+Before deploying, open the `vercel.json` file inside the `frontend` directory (`frontend/vercel.json`). Make sure the Destination URL points to your actual Render backend URL that you created in Step 1.
 
 ```json
 {
@@ -53,7 +53,8 @@ Before deploying, open the `vercel.json` file in the root of the project. Make s
 1. Go to [Vercel Dashboard](https://vercel.com/dashboard).
 2. Click **Add New** -> **Project**.
 3. Import your GitHub repository.
-4. Leave all settings exactly as they are. Vercel will automatically read the `vercel.json` file which tells it to build the `frontend` folder.
-5. Click **Deploy**.
+4. In the **Project Settings**, find the **Root Directory** section and click **Edit**.
+5. Select the `frontend` directory and save.
+6. Click **Deploy**.
 
 Once the deployment finishes, open your Vercel URL. All `/api` requests made by the frontend will now automatically proxy to your securely hosted Render backend!
